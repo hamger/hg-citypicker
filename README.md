@@ -13,12 +13,7 @@
 <link rel="stylesheet" type="text/css" href="./picker.min.css" />
 <script src="./citypicker.min.js"></script>
 ```
-如果你使用构建工具，这样引入
-```js
-import 'hg-citypicker/picker.min.css';
-import CityPicker from 'hg-citypicker';
-```
-实例化日期选择器`new citypicker(option)`
+实例化日期选择器`new CityPicker(option)`
 ```js
 new CityPicker({
     inputId: 'city-input', // 目标DOM元素ID
@@ -27,6 +22,28 @@ new CityPicker({
         console.log(arr);
     }
 });
+```
+
+如果你使用构建工具，可以这样引入
+```js
+import 'hg-citypicker/picker.min.css';
+import CityPicker from 'hg-citypicker';
+```
+在`vue`中实例化插件，如果数据是异步请求过来的，实例化写在请求成功后的回调中
+```js
+...
+mounted () {
+	this.$nextTick(() => {
+		new CityPicker({
+		    inputId: 'city-input', // 目标DOM元素ID
+		    data: city, // 符合格式的 json 数据
+		    success: function(arr) { // 回调函数
+		        console.log(arr);
+		    }
+		});
+	});
+}
+...
 ```
 ## 日期选择器配置项
 `option`是一个配置项的对象，可以接受如下参数：
