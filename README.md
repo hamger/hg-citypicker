@@ -1,5 +1,5 @@
 # hg-citypicker
-![build](https://img.shields.io/badge/build-passed-brightgreen.svg)
+[![build](https://img.shields.io/badge/build-passed-brightgreen.svg)](www.baidu.com)
 ![npm](https://img.shields.io/badge/npm-v0.1.18-blue.svg)
 ![licence](https://img.shields.io/badge/licence-MIT-orange.svg)
 ## Demo
