@@ -1,7 +1,6 @@
 {
   "name": "hg-citypicker",
-  "version": "0.1.18",
-  "author": "Hanger (https://hamger.github.io)",
+  "version": "0.1.19",
   "author": "Hanger <2313303800@qq.com> (https://hamger.github.io)",
   "description": "Hanger‘s citypicker",
   "keywords": [
