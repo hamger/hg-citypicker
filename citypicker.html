@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="screen-orientation" content="portrait">
+    <title>hg-citypicker</title>
+    <link rel="shortcut icon" href="http://olislpb6q.bkt.clouddn.com/header.jpg" />
+    <link rel="stylesheet" type="text/css" href="./picker.css" />
+    <style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        background-color: #fff;
+    }
+
+    .wraper {
+        margin-bottom: 15px;
+    }
+
+    .title {
+        position: relative;
+        width: 100%;
+        height: 48px;
+        line-height: 48px;
+        text-align: center;
+        color: #000;
+    }
+
+    .title:after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 5px;
+        left: 48%;
+        bottom: 0;
+        margin: 0 -42px;
+        background: #bbb;
+        border-radius: 10px;
+    }
+
+    .inputDiv {
+        color: #333;
+        width: 200px;
+        height: 20px;
+        line-height: 20px;
+        margin: 10px auto;
+        padding: 5px 20px;
+        border: 1px solid #bbb;
+        border-radius: 8px;
+    }
+    </style>
+</head>
+
+<body>
+    <article class="wraper">
+        <h3 class="title">cityPicker</h3>
+        <div class="inputDiv" id="space-input"/>选择中国城市</div>
+    </article>
+    <script src="./citypicker.js"></script>
+    <script src="./city.js"></script>
+    <script>
+    new CityPicker({
+        inputId: 'space-input',
+        data: city, // 符合格式的 json 数据
+        cancel: function () {
+            console.log('取消城市选择');
+        },
+        style: {
+            bottom: '100px',
+            left: '3%',
+            width: '94%',
+            btnLocation: 'bottom',
+            radius: '10px',
+            liHeight: 45,
+            btnHeight: 50,
+            btnOffset: '70px',
+        },
+        success: function(arr) {
+            console.log(arr);
+            var arr2 = [];
+            arr.forEach(function(val) {
+                arr2.push(val.value);
+            });
+            document.getElementById('space-input').innerHTML = arr2;
+        }
+    });
+    </script>
+</body>
+
+</html>
