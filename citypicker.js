@@ -262,8 +262,8 @@
                 if (obj.liHeight !== 40 || obj.btnHeight !== 44) container.style.height = this.liHeight * 5 + this.btnHeight + 'px'
                 // 设置配色
                 if(obj.titleColor) box.style.color = obj.titleColor
-                if(obj.sureBtnColor) sureBtn.style.color = obj.sureBtnColor
-                if(obj.abolishBtnColor) abolishBtn.style.color = obj.abolishBtnColor
+                if(obj.sureColor) sureBtn.style.color = obj.sureColor
+                if(obj.cancelColor) abolishBtn.style.color = obj.cancelColor
                 if(obj.btnBgColor) box.style.backgroundColor = obj.btnBgColor
                 if(obj.contentColor) content.style.color = obj.contentColor
                 if(obj.contentBgColor) content.style.backgroundColor = obj.contentBgColor

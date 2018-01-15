@@ -1,6 +1,6 @@
 # hg-citypicker
 ![build](https://img.shields.io/badge/build-passed-brightgreen.svg)
-![npm](https://img.shields.io/badge/npm-v0.2.5-blue.svg)
+![npm](https://img.shields.io/badge/npm-v0.2.6-blue.svg)
 ![licence](https://img.shields.io/badge/licence-MIT-orange.svg)
 ## Demo
 [点击这里可跳转到演示页面](https://hamger.github.io/demo/citypicker/citypicker.html)，请在移动端打开或者使用浏览器移动端调试工具打开。 
