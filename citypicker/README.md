@@ -1,7 +1,7 @@
 # hg-citypicker
-![build](https://img.shields.io/badge/build-passed-brightgreen.svg)
-![npm](https://img.shields.io/badge/npm-v0.2.7-blue.svg)
-![licence](https://img.shields.io/badge/licence-MIT-orange.svg)
+![build passed](https://img.shields.io/badge/build-passed-brightgreen.svg)
+![npm v0.2.7](https://img.shields.io/badge/npm-v0.2.9-blue.svg)
+![licence MIT](https://img.shields.io/badge/licence-MIT-orange.svg)
 ## Demo
 ![hg-citypicker png](http://olislpb6q.bkt.clouddn.com/hg-citypicker.png)
 
@@ -48,7 +48,7 @@ mounted () {
 ...
 ```
 ## 日期选择器配置项
-`option`是一个配置项的对象，可以接受如下参数：
+`option`是一个配置项的对象，可以接受如下选项：
 
 key | value | description
 --------|------|-----
@@ -61,11 +61,10 @@ cancel | Function  |  点击取消按钮或者背景后的回调函数，选填
 title | String | 选择器标题，默认为空
 sureText | String | 确定按钮文本，默认为“确定”
 cancelText | String | 取消按钮文本，默认为“取消”
-f | Number | 惯性滚动阈值（正数, 单位 px/ms），规定滚动速度多大时采用缓冲动画，默认 `0.85`
 a | Number | 惯性滚动加速度（正数, 单位 px/(ms * ms)），规定滚动阻力，加速度越小缓冲距离越长，默认 `0.001`
 style | Obeject | 包含样式配置的对象
 
-`style`对象可以接受如下参数：
+`style`对象可以接受如下选项：
 
 key | value | description
 --------|------|-----

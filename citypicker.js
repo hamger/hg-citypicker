@@ -45,7 +45,6 @@
         this.sureText = config.sureText || '确定' // 确定按钮文本，选填
         this.cancelText = config.cancelText || '取消' // 取消按钮文本，选填
         this.a = config.a // 惯性滚动加速度（正数, 单位 px/(ms * ms)），选填，默认 0.001
-        this.f = config.f // 惯性滚动阈值（正数, 单位 px/ms），选填，默认 0.85
         this.style = config.style // 选择器样式, 选填
         this.initTab() // 初始化标签
         this.initUI() // 初始化UI
@@ -237,9 +236,9 @@
                 var content = $id(this.content)
                 var box = $id(this.box)
                 var sureBtn = $id(this.sure)
-                var abolishBtn = $id(this.abolish)
+                var cancelBtn = $id(this.abolish)
                 var len = content.children.length
-                // 设置高宽
+                // 设置高度
                 if (obj.liHeight !== 40) {
                     for (var i = 0; i < this.ulCount; i++) {
                         setChildStyle(content.children[i], 'height', this.liHeight + 'px')
@@ -257,13 +256,13 @@
                 }
                 if (obj.btnOffset) {
                     sureBtn.style.marginRight = obj.btnOffset
-                    abolishBtn.style.marginLeft = obj.btnOffset
+                    cancelBtn.style.marginLeft = obj.btnOffset
                 }
                 if (obj.liHeight !== 40 || obj.btnHeight !== 44) container.style.height = this.liHeight * 5 + this.btnHeight + 'px'
                 // 设置配色
                 if(obj.titleColor) box.style.color = obj.titleColor
                 if(obj.sureColor) sureBtn.style.color = obj.sureColor
-                if(obj.cancelColor) abolishBtn.style.color = obj.cancelColor
+                if(obj.cancelColor) cancelBtn.style.color = obj.cancelColor
                 if(obj.btnBgColor) box.style.backgroundColor = obj.btnBgColor
                 if(obj.contentColor) content.style.color = obj.contentColor
                 if(obj.contentBgColor) content.style.backgroundColor = obj.contentBgColor
@@ -328,16 +327,13 @@
          * @time 滚动持续时间
          */
         roll: function(i, time) {
-            if (this.curDis[i] >= 0) {
-                this.spaceUl[i].style.transform = 'translate3d(0,-' + this.curDis[i] + 'px, 0)'
-                this.spaceUl[i].style.webkitTransform = 'translate3d(0,-' + this.curDis[i] + 'px, 0)'
-            } else {
-                this.spaceUl[i].style.transform = 'translate3d(0,' + Math.abs(this.curDis[i]) + 'px, 0)'
-                this.spaceUl[i].style.webkitTransform = 'translate3d(0,' + Math.abs(this.curDis[i]) + 'px, 0)'
-            }
-            if (time) {
-                this.spaceUl[i].style.transition = 'transform ' + time + 's linear'
-                this.spaceUl[i].style.webkitTransition = '-webkit-transform ' + time + 's linear'
+            if (this.curDis[i] || this.curDis[i] === 0) {
+                this.spaceUl[i].style.transform = 'translate3d(0, ' + this.curDis[i] + 'px, 0)'
+                this.spaceUl[i].style.webkitTransform = 'translate3d(0, ' + this.curDis[i] + 'px, 0)'
+                if (time) {
+                    this.spaceUl[i].style.transition = 'transform ' + time + 's ease-out'
+                    this.spaceUl[i].style.webkitTransition = '-webkit-transform ' + time + 's ease-out'
+                }
             }
         },
         /**
@@ -365,9 +361,9 @@
                     event.preventDefault()
                     this.moveY = event.touches[0].clientY
                     var offset  = this.startY - this.moveY // 向上为正数，向下为负数
-                    this.curDis[i] = offset + this.curPos[i]
-                    if (this.curDis[i] <= -1.5 * this.liHeight) this.curDis[i] = -1.5 * this.liHeight
-                    if (this.curDis[i] >= (this.liNum[i] - 1 + 1.5) * this.liHeight) this.curDis[i] = (this.liNum[i] - 1 + 1.5) * this.liHeight
+                    this.curDis[i] = this.curPos[i] - offset
+                    if (this.curDis[i] >= 1.5 * this.liHeight) this.curDis[i] = 1.5 * this.liHeight
+                    if (this.curDis[i] <= -1 * (this.liNum[i] - 1 + 1.5) * this.liHeight) this.curDis[i] = -1 * (this.liNum[i] - 1 + 1.5) * this.liHeight
                     this.roll(i)
                     // 每运动 130 毫秒，记录一次速度
                     if (this.moveTime - this.startTime >= 130 * this.moveNumber) {
@@ -379,7 +375,7 @@
                     if (!this.abled) return
                     this.endTime = Date.now()
                     var speed = this.moveSpeed[this.moveSpeed.length - 1] || 0
-                    this.curDis[i] = this.curDis[i] + this.calculateBuffer(speed, this.a, this.f)
+                    this.curDis[i] = this.curDis[i] - this.calculateBuffer(speed, this.a)
                     this.fixate(i)
                     break
             }
@@ -389,11 +385,10 @@
          * Return : Number
          * Explain : @v 速度（正负表示运动方向, 单位 px/ms）
          * @a 加速度（正数, 单位 px/(ms * ms)）
-         * @f 阈值 滑动速度为多少时开始启用缓冲动画（正数, 单位 px/ms）
          */
-        calculateBuffer: function (v, a, f) {
-            var a = a || 0.001, f = f || 0.85
-            if (Math.abs(v) > f) return (v / Math.abs(v)) * (0.5 * v * v / a)
+        calculateBuffer: function (v, a) {
+            var a2 = a || 0.001;
+            if (Math.abs(v) > 0.25) return (v / Math.abs(v)) * (0.5 * v * v / a2)
             else return 0
         },
         /**
@@ -413,20 +408,10 @@
          * Explain : @i 需要处理的列的索引
          */
         getPosition: function(i) {
-            var index = 0
-            var liRow = Math.round((this.curDis[i] / this.liHeight).toFixed(2))
-            if (liRow > this.liNum[i] - 1) { // 越下界置底
-                this.curDis[i] = this.liHeight * (this.liNum[i] - 1)
-                index = this.liNum[i] - 1
-            } else if (liRow < 0) { // 越上界置顶
-                this.curDis[i] = 0
-                index = 0
-            } else { // 中间归整
-                this.curDis[i] = this.liHeight * liRow
-                index = liRow
-            }
-            this.spaceIndex[i] = index
-            this.curDis[i] = this.spaceIndex[i] * this.liHeight
+            if (this.curDis[i] <= -1 * (this.liNum[i] - 1) * this.liHeight ) this.spaceIndex[i] = this.liNum[i] - 1
+            else if (this.curDis[i] >= 0) this.spaceIndex[i] = 0
+            else this.spaceIndex[i] = -1 * Math.round(this.curDis[i] / this.liHeight)
+            this.curDis[i] = -1 * this.liHeight * this.spaceIndex[i]
         },
         /**
          * 更新内容区视图
