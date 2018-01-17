@@ -374,7 +374,11 @@
                 case "touchend":
                     if (!this.abled) return
                     this.endTime = Date.now()
-                    var speed = this.moveSpeed[this.moveSpeed.length - 1] || 0
+                    if (this.moveNumber === 1) {
+                        var speed =  (this.startY - event.changedTouches[0].clientY) / (this.endTime - this.startTime)
+                    } else {
+                        var speed = this.moveSpeed[this.moveSpeed.length - 1]
+                    }
                     this.curDis[i] = this.curDis[i] - this.calculateBuffer(speed, this.a)
                     this.fixate(i)
                     break
