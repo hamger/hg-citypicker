@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="./picker.min.css" />
 <script src="./citypicker.min.js"></script>
 ```
-实例化日期选择器`new CityPicker(option)`
+实例化选择器`new CityPicker(option)`
 ```js
 new CityPicker({
     inputId: 'city-input', // 目标DOM元素ID
@@ -65,7 +65,7 @@ var city = [{
   }]
 }]
 ```
-## 日期选择器配置项
+## 选择器配置项
 `option`是一个配置项的对象，可以接受如下选项：
 
 key | value | description
