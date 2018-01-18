@@ -30,21 +30,40 @@ new CityPicker({
 import 'hg-citypicker/picker.min.css';
 import CityPicker from 'hg-citypicker';
 ```
-在`vue`中实例化插件，如果数据是异步请求过来的，实例化写在请求成功后的回调中
-```js
-...
+在`vue`中实例化插件，如果数据是请求来的，实例化写在请求成功后的回调中
+```
 mounted () {
-	this.$nextTick(() => {
-		new CityPicker({
-		    inputId: 'city-input', // 目标DOM元素ID
-		    data: city, // 符合格式的 json 数据
-		    success: function(arr) { // 回调函数
-		        console.log(arr);
-		    }
-		});
-	});
+    this.$nextTick(() => {
+        new CityPicker({
+            inputId: 'city-input', // 目标DOM元素ID
+            data: city, // 符合格式的 json 数据
+            success: function(arr) { // 回调函数
+                console.log(arr);
+            }
+        });
+    });
 }
-...
+```
+`data`选项接受的数据格式如下，其中的键名`value`和`child`是可以根据实际需要通过配置项`valueKey`和`childKey`设置
+```js
+var city = [{
+  "value": "广东",
+  "child": [{
+    "value": "广州",
+    "child": [{
+      "value": "越秀区"
+    }, {
+      "value": "荔湾区"
+    }]
+  }
+},{
+  "value": "北京",
+  "child": [{
+    "value": "东城区"
+  }, {
+    "value": "西城区"
+  }]
+}]
 ```
 ## 日期选择器配置项
 `option`是一个配置项的对象，可以接受如下选项：
