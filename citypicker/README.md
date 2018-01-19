@@ -2,7 +2,7 @@
 ![build passed](https://img.shields.io/badge/build-passed-brightgreen.svg)
 ![licence MIT](https://img.shields.io/badge/licence-MIT-orange.svg)
 ## Demo
-![hg-citypicker png](http://olislpb6q.bkt.clouddn.com/hg-citypicker.png)
+![hg-citypicker png](http://olislpb6q.bkt.clouddn.com/hg-citypicker2.png)
 
 [点击这里可跳转到演示页面](https://hamger.github.io/demo/citypicker/citypicker.html)，请在移动端打开或者使用浏览器移动端调试工具打开。 
 ## 下载插件
@@ -14,11 +14,11 @@
 <link rel="stylesheet" type="text/css" href="./picker.min.css" />
 <script src="./citypicker.min.js"></script>
 ```
-实例化选择器`new CityPicker(option)`
+实例化日期选择器`new CityPicker(option)`
 ```js
 new CityPicker({
     inputId: 'city-input', // 目标DOM元素ID
-    data: city, // 符合格式的 json 数据
+    data: city, // 符合格式的数组
     success: function(arr) { // 回调函数
         console.log(arr);
     }
@@ -36,7 +36,7 @@ mounted () {
     this.$nextTick(() => {
         new CityPicker({
             inputId: 'city-input', // 目标DOM元素ID
-            data: city, // 符合格式的 json 数据
+            data: city, // 符合格式的数组
             success: function(arr) { // 回调函数
                 console.log(arr);
             }
@@ -44,34 +44,26 @@ mounted () {
     });
 }
 ```
-`data`选项接受的数据格式如下，其中的键名`value`和`child`是可以根据实际需要通过配置项`valueKey`和`childKey`设置
+`data`选项接受的数据格式如下，其中的键名`value`和`child`可以根据实际需要通过配置项`valueKey`和`childKey`设置
 ```js
 var city = [{
-  "value": "广东",
-  "child": [{
-    "value": "广州",
-    "child": [{
-      "value": "越秀区"
-    }, {
-      "value": "荔湾区"
-    }]
+  value: "北京",
+  child: [{value: "东城区"}, {value: "西城区"}]
+}, {
+  value: "广东",
+  child: [{
+    value: "广州",
+    child: [{value: "越秀区"}, {value: "荔湾区"}]
   }
-},{
-  "value": "北京",
-  "child": [{
-    "value": "东城区"
-  }, {
-    "value": "西城区"
-  }]
 }]
 ```
-## 选择器配置项
+## 日期选择器配置项
 `option`是一个配置项的对象，可以接受如下选项：
 
 key | value | description
 --------|------|-----
 inputId | String | 目标DOM元素ID，必填
-data | Array | 符合格式的 json 数据，必填
+data | Array<Obeject> | 符合格式的数组，必填
 valueKey | String | 需要展示的数据的键名，默认`value`
 childKey | String | 子数据的键名，默认`child`
 success | Function  |  确定后的回调函数，返回一个结果数组，必填
