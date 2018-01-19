@@ -63,7 +63,7 @@ var city = [{
 key | value | description
 --------|------|-----
 inputId | String | 目标DOM元素ID，必填
-data | Array<Obeject> | 符合格式的数组，必填
+data | Array\<Obeject\> | 符合格式的数组，必填
 valueKey | String | 需要展示的数据的键名，默认`value`
 childKey | String | 子数据的键名，默认`child`
 success | Function  |  确定后的回调函数，返回一个结果数组，必填
