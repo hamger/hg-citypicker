@@ -57,7 +57,7 @@ var city = [{
   }
 }]
 ```
-## 日期选择器配置项
+## 地区选择器配置项
 `option`是一个配置项的对象，可以接受如下选项：
 
 key | value | description
