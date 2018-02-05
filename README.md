@@ -4,11 +4,11 @@
 ## Demo
 ![hg-citypicker png](http://olislpb6q.bkt.clouddn.com/hg-citypicker2.png)
 
-[点击这里可跳转到演示页面](https://hamger.github.io/demo/citypicker/citypicker.html)，请在移动端打开或者使用浏览器移动端调试工具打开。 
+[点击这里可跳转到演示页面](https://hamger.github.io/demo/citypicker/citypicker.html)，请在移动端打开或者使用浏览器移动端调试工具打开。
 ## 下载插件
 * Github下载：[下载地址](https://github.com/hamger/hg-citypicker)
 * npm下载：`npm i hg-citypicker`
-## 快速使用 
+## 快速使用
 首先引入文件
 ```html
 <link rel="stylesheet" type="text/css" href="./picker.min.css" />
@@ -17,7 +17,7 @@
 实例化日期选择器`new CityPicker(option)`
 ```js
 new CityPicker({
-    inputId: 'city-input', // 目标DOM元素ID
+    inputId: 'city-input', // 触发选择的元素ID
     data: city, // 符合格式的数组
     success: function(arr) { // 回调函数
         console.log(arr);
@@ -35,9 +35,9 @@ import CityPicker from 'hg-citypicker';
 mounted () {
     this.$nextTick(() => {
         new CityPicker({
-            inputId: 'city-input', // 目标DOM元素ID
-            data: city, // 符合格式的数组
-            success: function(arr) { // 回调函数
+            inputId: 'city-input',
+            data: city,
+            success: function(arr) {
                 console.log(arr);
             }
         });
@@ -55,6 +55,21 @@ var city = [{
     value: "广州",
     child: [{value: "越秀区"}, {value: "荔湾区"}]
   }
+}]
+```
+例如你选择了`广东-广州-越秀`，成功的回调函数中会接收如下形式的数组
+```
+[{
+  value: "广东",
+  child: [{
+    value: "广州",
+    child: [{value: "越秀区"}, {value: "荔湾区"}]
+  }
+},{
+  value: "广州",
+  child: [{value: "越秀区"}, {value: "荔湾区"}
+},{
+  value: "越秀区"
 }]
 ```
 ## 地区选择器配置项
