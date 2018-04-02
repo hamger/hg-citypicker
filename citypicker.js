@@ -12,7 +12,7 @@
     function $id(id) {
         return document.getElementById(id)
     }
-
+    
     /**
      * 设置子元素样式
      */
@@ -26,7 +26,6 @@
     /**
      * DOM 移除自身
      */
-
     function $removeSelf(dom) {
         dom.parentNode.removeChild(dom)
     }
@@ -133,7 +132,6 @@
                 }
             })
         },
-
         /**
          * 创建选择器外包裹元素
          */
@@ -230,46 +228,45 @@
          * 设置选择器样式
          */
         setStyle: function() {
-            if (this.style) {
-                var obj = this.style
-                var container = $id(this.container)
-                var content = $id(this.content)
-                var box = $id(this.box)
-                var sureBtn = $id(this.sure)
-                var cancelBtn = $id(this.abolish)
-                var len = content.children.length
-                // 设置高度
-                if (obj.liHeight !== 40) {
-                    for (var i = 0; i < this.ulCount; i++) {
-                        setChildStyle(content.children[i], 'height', this.liHeight + 'px')
-                    };
-                    content.children[len - 3].style.height = this.liHeight * 2 + 'px'
-                    content.children[len - 2].style.height = this.liHeight * 2 + 'px'
-                    content.children[len - 1].style.height = this.liHeight + 'px'
-                    content.children[len - 1].style.top = this.liHeight * 2 + 'px'
-                    content.style.height = this.liHeight * 5 + 'px'
-                    content.style.lineHeight = this.liHeight + 'px'
-                }
-                if (obj.btnHeight !== 44) {
-                    box.style.height = this.btnHeight + 'px'
-                    box.style.lineHeight = this.btnHeight + 'px'
-                }
-                if (obj.btnOffset) {
-                    sureBtn.style.marginRight = obj.btnOffset
-                    cancelBtn.style.marginLeft = obj.btnOffset
-                }
-                if (obj.liHeight !== 40 || obj.btnHeight !== 44) container.style.height = this.liHeight * 5 + this.btnHeight + 'px'
-                // 设置配色
-                if(obj.titleColor) box.style.color = obj.titleColor
-                if(obj.sureColor) sureBtn.style.color = obj.sureColor
-                if(obj.cancelColor) cancelBtn.style.color = obj.cancelColor
-                if(obj.btnBgColor) box.style.backgroundColor = obj.btnBgColor
-                if(obj.contentColor) content.style.color = obj.contentColor
-                if(obj.contentBgColor) content.style.backgroundColor = obj.contentBgColor
-                if(obj.upShadowColor) content.children[len - 3].style.backgroundImage = obj.upShadowColor
-                if(obj.downShadowColor) content.children[len - 2].style.backgroundImage = obj.downShadowColor
-                if(obj.lineColor) content.children[len - 1].style.borderColor = obj.lineColor
-            }
+          if (!this.style) return
+          var obj = this.style
+          var container = $id(this.container)
+          var content = $id(this.content)
+          var box = $id(this.box)
+          var sureBtn = $id(this.sure)
+          var cancelBtn = $id(this.abolish)
+          var len = content.children.length
+          // 设置高度
+          if (obj.liHeight !== 40) {
+            for (var i = 0; i < this.ulCount; i++) {
+              setChildStyle(content.children[i], 'height', this.liHeight + 'px')
+            };
+            content.children[len - 3].style.height = this.liHeight * 2 + 'px'
+            content.children[len - 2].style.height = this.liHeight * 2 + 'px'
+            content.children[len - 1].style.height = this.liHeight + 'px'
+            content.children[len - 1].style.top = this.liHeight * 2 + 'px'
+            content.style.height = this.liHeight * 5 + 'px'
+            content.style.lineHeight = this.liHeight + 'px'
+          }
+          if (obj.btnHeight !== 44) {
+            box.style.height = this.btnHeight + 'px'
+            box.style.lineHeight = this.btnHeight + 'px'
+          }
+          if (obj.btnOffset) {
+            sureBtn.style.marginRight = obj.btnOffset
+            cancelBtn.style.marginLeft = obj.btnOffset
+          }
+          if (obj.liHeight !== 40 || obj.btnHeight !== 44) container.style.height = this.liHeight * 5 + this.btnHeight + 'px'
+          // 设置配色
+          if(obj.titleColor) box.style.color = obj.titleColor
+          if(obj.sureColor) sureBtn.style.color = obj.sureColor
+          if(obj.cancelColor) cancelBtn.style.color = obj.cancelColor
+          if(obj.btnBgColor) box.style.backgroundColor = obj.btnBgColor
+          if(obj.contentColor) content.style.color = obj.contentColor
+          if(obj.contentBgColor) content.style.backgroundColor = obj.contentBgColor
+          if(obj.upShadowColor) content.children[len - 3].style.backgroundImage = obj.upShadowColor
+          if(obj.downShadowColor) content.children[len - 2].style.backgroundImage = obj.downShadowColor
+          if(obj.lineColor) content.children[len - 1].style.borderColor = obj.lineColor
         },
         /**
          * 渲染 ul 元素
