@@ -33,7 +33,7 @@ new CityPicker({
 
 如果你使用构建工具，可以这样引入
 ```js
-import 'hg-citypicker/picker.min.css';
+import 'hg-citypicker/dist/picker.min.css';
 import CityPicker from 'hg-citypicker';
 ```
 在`vue`中实例化插件，如果数据是请求来的，实例化写在请求成功后的回调中
@@ -113,6 +113,9 @@ downShadowColor | String | 选择器底部朦层颜色
 lineColor | String | 选择器分隔线颜色
 
 ## Changelog
+### 2018.4.11
+> 1.0.0 * 修改项目文件结构
+
 ### 2018.2.21
 > 0.2.10 * 添加地区选择器简介
 

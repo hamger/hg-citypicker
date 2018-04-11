@@ -63,13 +63,13 @@
             this.input = $id(this.inputId) // 目标元素
             this.wrapId = this.inputId + '-wrap' // 选择器外包裹元素ID
             this.relatedArr = [] // 存放每列地址的关联数组
-            this.spaceIndex = [] // 存放每列地址的索引
+            this.cityIndex = [] // 存放每列地址的索引
             this.liNum = [] // 每个ul有多少个可选li
             this.ulCount = 0 // 当前展示的列数
             this.renderCount = 0 // 将要渲染的列数
             this.liHeight = this.style && this.style.liHeight ? this.style.liHeight : 40 // 每个li的高度
             this.btnHeight = this.style && this.style.btnHeight ? this.style.btnHeight : 44 // 按钮的高度
-            this.spaceUl = [] // 每个ul元素
+            this.cityUl = [] // 每个ul元素
             this.curDis = [] // 每个ul当前偏离的距离
             this.curPos = [] // 记录 touchstart 时每个ul的竖向距离
             this.startY = 0 // touchstart的位置
@@ -95,7 +95,7 @@
             // 初始化最高层的参数，最高层的关联数组在未来的操作中都无需更新
             this.relatedArr[0] = this.data
             this.liNum[0] = this.relatedArr[0].length
-            this.spaceIndex[0] = 0
+            this.cityIndex[0] = 0
             // 得到各列的关联数组
             this.getRelatedArr(this.relatedArr[0][0], 0)
             // 初始化子数据参数，子数据的关联数组会随着选中父数据的改变而变化
@@ -160,13 +160,13 @@
         * 更新 ulCount 和子数据的参数
         * Explain : @i 当前操作列索引
             当前操作列的关联数组不需要更新，只需更新其子数据中的关联数组
-            ulCount, liNum， spaceIndex, curDis
+            ulCount, liNum， cityIndex, curDis
         */
         updateChildData: function(i) {
             this.ulCount = i + 1 + this.renderCount
             for (var j = i + 1; j < this.ulCount; j++) {
                 this.liNum[j] = this.relatedArr[j].length
-                this.spaceIndex[j] = 0
+                this.cityIndex[j] = 0
                 this.curDis[j] = 0
             };
         },
@@ -217,7 +217,7 @@
             this.wrap.innerHTML = html
             for (var i = 0; i < this.ulCount; i++) {
                 this.renderUl(i)
-                this.spaceIndex[i] = 0
+                this.cityIndex[i] = 0
                 this.curDis[i] = 0 * this.liHeight
                 this.bindRoll(i)
             }
@@ -277,7 +277,7 @@
             var newUl = document.createElement('ul')
             newUl.setAttribute('id', this.wrapId + '-ul-' + i)
             parentNode.insertBefore(newUl, parentNode.children[parentNode.children.length - 3])
-            this.spaceUl[i] = $id(this.wrapId + '-ul-' + i)
+            this.cityUl[i] = $id(this.wrapId + '-ul-' + i)
             this.renderLi(i)
         },
         /**
@@ -285,21 +285,21 @@
          * Explain : @i 需要处理的列的索引
          */
         renderLi: function(i) {
-            this.spaceUl[i].innerHTML = ''
+            this.cityUl[i].innerHTML = ''
             var lis = '<li></li><li></li>'
             this.getValue(this.relatedArr[i]).forEach(function(val, index) {
                 lis += '<li>' + val + '</li>'
             })
             lis += '<li></li><li></li>'
-            this.spaceUl[i].innerHTML = lis
-            if (this.liHeight !== 40) setChildStyle(this.spaceUl[i], 'height', this.liHeight + 'px')
+            this.cityUl[i].innerHTML = lis
+            if (this.liHeight !== 40) setChildStyle(this.cityUl[i], 'height', this.liHeight + 'px')
         },
         /**
          * 设置 ul 元素宽度
          */
         setUlWidth: function() {
             for (var i = 0; i < this.ulCount; i++) {
-                this.spaceUl[i].style.width = (100 / this.ulCount).toFixed(2) + '%'
+                this.cityUl[i].style.width = (100 / this.ulCount).toFixed(2) + '%'
             }
         },
         /**
@@ -308,13 +308,13 @@
          */
         bindRoll: function(i) {
             var that = this
-            that.spaceUl[i].addEventListener('touchstart', function() {
+            that.cityUl[i].addEventListener('touchstart', function() {
                 that.touch(i)
             }, false)
-            that.spaceUl[i].addEventListener('touchmove', function() {
+            that.cityUl[i].addEventListener('touchmove', function() {
                 that.touch(i)
             }, false)
-            that.spaceUl[i].addEventListener('touchend', function() {
+            that.cityUl[i].addEventListener('touchend', function() {
                 that.touch(i)
             }, true)
         },
@@ -325,11 +325,11 @@
          */
         roll: function(i, time) {
             if (this.curDis[i] || this.curDis[i] === 0) {
-                this.spaceUl[i].style.transform = 'translate3d(0, ' + this.curDis[i] + 'px, 0)'
-                this.spaceUl[i].style.webkitTransform = 'translate3d(0, ' + this.curDis[i] + 'px, 0)'
+                this.cityUl[i].style.transform = 'translate3d(0, ' + this.curDis[i] + 'px, 0)'
+                this.cityUl[i].style.webkitTransform = 'translate3d(0, ' + this.curDis[i] + 'px, 0)'
                 if (time) {
-                    this.spaceUl[i].style.transition = 'transform ' + time + 's ease-out'
-                    this.spaceUl[i].style.webkitTransition = '-webkit-transform ' + time + 's ease-out'
+                    this.cityUl[i].style.transition = 'transform ' + time + 's ease-out'
+                    this.cityUl[i].style.webkitTransition = '-webkit-transform ' + time + 's ease-out'
                 }
             }
         },
@@ -399,7 +399,7 @@
         fixate: function(i) {
             this.renderCount = 0
             this.getPosition(i)
-            this.getRelatedArr(this.relatedArr[i][this.spaceIndex[i]], i)
+            this.getRelatedArr(this.relatedArr[i][this.cityIndex[i]], i)
             this.updateChildData(i)
             this.updateView(i)
             for (var j = i; j < this.ulCount; j++) this.roll(j, 0.2)
@@ -409,10 +409,10 @@
          * Explain : @i 需要处理的列的索引
          */
         getPosition: function(i) {
-            if (this.curDis[i] <= -1 * (this.liNum[i] - 1) * this.liHeight ) this.spaceIndex[i] = this.liNum[i] - 1
-            else if (this.curDis[i] >= 0) this.spaceIndex[i] = 0
-            else this.spaceIndex[i] = -1 * Math.round(this.curDis[i] / this.liHeight)
-            this.curDis[i] = -1 * this.liHeight * this.spaceIndex[i]
+            if (this.curDis[i] <= -1 * (this.liNum[i] - 1) * this.liHeight ) this.cityIndex[i] = this.liNum[i] - 1
+            else if (this.curDis[i] >= 0) this.cityIndex[i] = 0
+            else this.cityIndex[i] = -1 * Math.round(this.curDis[i] / this.liHeight)
+            this.curDis[i] = -1 * this.liHeight * this.cityIndex[i]
         },
         /**
          * 更新内容区视图
@@ -438,7 +438,7 @@
                     this.renderLi(j)
                 }
                 for (var j = this.ulCount; j < curUlCount; j++) {
-                    $removeSelf(this.spaceUl[j])
+                    $removeSelf(this.cityUl[j])
                 }
                 this.setUlWidth()
             }
@@ -449,7 +449,7 @@
         getResult: function() {
             var arr = []
             for (var i = 0; i < this.ulCount; i++) {
-                arr.push(this.relatedArr[i][this.spaceIndex[i]])
+                arr.push(this.relatedArr[i][this.cityIndex[i]])
             }
             return arr
         },

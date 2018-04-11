@@ -1,6 +1,6 @@
 {
   "name": "hg-citypicker",
-  "version": "0.2.10",
+  "version": "1.0.0",
   "author": "Hanger <2313303800@qq.com> (https://hamger.github.io)",
   "description": "Hanger‘s citypicker",
   "keywords": [
@@ -16,5 +16,5 @@
     "type": "git",
     "url": "https://github.com/hamger/hg-citypicker.git"
   },
-  "main": "citypicker.min.js"
+  "main": "dist/citypicker.min.js"
 }
