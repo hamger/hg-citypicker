@@ -3,7 +3,7 @@
 ![licence MIT](https://img.shields.io/badge/licence-MIT-orange.svg)
 
 ## 简介
-使用原生 JavaScript 制作的移动端的日期选择器，附有 demo 和使用说明文档，支持多个配置项，已在多个线上项目中使用，可通过`npm install hg-citypicker`下载。
+使用原生 JavaScript 制作的移动端的地区选择器，适用于选择嵌套的数据，附有 demo 和使用说明文档，支持多个配置项，已在多个线上项目中使用，可通过`npm install hg-citypicker`下载。
 
 ## Demo
 ![hg-citypicker png](http://olislpb6q.bkt.clouddn.com/hg-citypicker2.png)
@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="./picker.min.css" />
 <script src="./citypicker.min.js"></script>
 ```
-实例化日期选择器`new CityPicker(option)`
+实例化地区选择器`new CityPicker(option)`
 ```js
 new CityPicker({
     inputId: 'city-input', // 触发选择的元素ID
