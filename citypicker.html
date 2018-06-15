@@ -72,6 +72,10 @@
         cancel: function () {
             console.log('取消城市选择');
         },
+        beforeShow: function () {
+            console.log('beforeSuccess回调触发了')  
+            return false
+        },
         success: function(arr) {
             console.log(arr);
             var arr2 = [];
