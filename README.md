@@ -37,7 +37,7 @@ import 'hg-citypicker/dist/picker.min.css';
 import CityPicker from 'hg-citypicker';
 ```
 在`vue`中实例化插件，如果数据是请求来的，实例化写在请求成功后的回调中
-```
+```js
 var cityPicker = null
 ...
 mounted () {
@@ -66,7 +66,7 @@ var city = [{
 }]
 ```
 由于考虑到各种复杂的情况，返回的结果数据比较全面。如果你只需要选中的数据，只需要获取数组每项的`value`（该字段可自定义）属性值即可。例如你选择了`广东-广州-越秀`，成功的回调函数中会接收如下形式的数组
-```
+```js
 [{
   value: "广东",
   child: [{
@@ -124,7 +124,7 @@ cityPicker.setInitailOption(initialOption) | initialOption: Array\<String\> | �
 
 ## Changelog
 ### 2018.6.16
-> v1.2.1 * 添加实例方法 setInitailOption
+> v1.2.2 * 添加实例方法 setInitailOption
 
 > v1.2.0 * 添加实例方法 forbidSelect ，添加 initialOption 配置项，修复选择器隐藏时依然触发 cancel 回调的问题
 
