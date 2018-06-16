@@ -172,9 +172,9 @@
             if (isInit) {
                 // 初始化选择器内容
                 this.renderContent()
-                for (var i = 0; i < this.initialOption.length; i++) this.roll(i)
+                for (var i = 0; i < this.ulCount; i++) this.roll(i)
             } else {
-                for (var i = 0; i < arr.length; i++) {
+                for (var i = 0; i < this.ulCount; i++) {
                     this.updateView(i)
                     this.roll(i)
                 }
