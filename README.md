@@ -119,11 +119,14 @@ lineColor | String | 选择器分隔线颜色
 ## 实例方法
 function | param | description
 -------- | ------ | -----
-cityPicker.forbidSelect(status) | status: `true`/`false` | 是否禁用选择框，`true`表示禁用，`false`表示不禁用
+cityPicker.forbidSelect(status) | status: `true`/`false` | 是否禁用选择框，`true`表示禁用，`false`表示不禁用，禁用状态下 beforeShow 回调依然会执行
+cityPicker.setInitailOption(initialOption) | initialOption: Array\<String\> | 变更初始显示的选项，若找不到匹配项，提示`Uncaught Error: The matching initailOption cannot be found`
 
 ## Changelog
 ### 2018.6.16
-> v1.2.0 * 添加实例方法 forbidSelect ，添加 initialOption 配置项，修复选择器隐藏时依然触发 cancel 回调的问题。
+> v1.2.1 * 添加实例方法 setInitailOption
+
+> v1.2.0 * 添加实例方法 forbidSelect ，添加 initialOption 配置项，修复选择器隐藏时依然触发 cancel 回调的问题
 
 ### 2018.6.15
 > v1.1.0 * 添加 boforeShow 配置项

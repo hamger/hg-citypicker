@@ -69,10 +69,11 @@
 <body>
     <article class="wraper">
         <h3 class="title">cityPicker</h3>
-        <div onclick="clickss()" class="inputDiv" id="space-input"/>选择中国城市</div>
+        <div class="inputDiv" id="space-input"/>选择中国城市</div>
         <div class="btn-box">
             <button class="btn" onclick="forbid()">禁止选择</button>
             <button class="btn" onclick="noForbid()">开启选择</button>
+            <button class="btn" onclick="setInitailOption()">设置初始显示</button>
         </div>
     </article>
     <script src="./city.js"></script>
@@ -89,7 +90,6 @@
         //     console.log('beforeSuccess回调触发了')
         //     this.forbidSelect(true)
         // },
-        // initialOption: ['湖北', '荆州', '荆州区'],
         initialOption: ['辽宁', '大连', '中山区'],
         success: function(arr) {
             console.log(arr);
@@ -104,12 +104,13 @@
     function forbid () {
         citypicker.forbidSelect(true);
     }
+
     function noForbid () {
         citypicker.forbidSelect(false);
     }
 
-    function clickss () {
-        // console.log('asfasfd')
+    function setInitailOption () {
+        citypicker.setInitailOption(['湖北', '荆州', '荆州区'])
     }
     </script>
 </body>

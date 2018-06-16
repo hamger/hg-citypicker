@@ -99,10 +99,7 @@
             this.relatedArr[0] = this.data
             this.liNum[0] = this.relatedArr[0].length
             if(this.initialOption) {
-                this.setInitailOption(this.initialOption)
-                // 初始化选择器内容
-                this.renderContent()
-                for (var i = 0; i < this.initialOption.length; i++) this.roll(i)
+                this.setInitailOption(this.initialOption, true)
             } else {
                 this.cityIndex[0] = 0
                 this.curDis[0] = 0
@@ -147,19 +144,20 @@
         /**
          * 计算并返回当前项所在的位置
          * Explain : @arr 需要初始显示的项
+         *  @isInit 是否是初始化状态
          */
-        setInitailOption: function(arr) {
+        setInitailOption: function(arr, isInit) {
             var idxArr = []
             for (var i = 0; i < arr.length; i++) {
                 if (i === 0) {
                     var idx = this.getValue(this.data).indexOf(arr[i])
                     if(idx > -1) idxArr.unshift(idx)
-                    else throw Error('未找到 initailOption 的匹配结果')
+                    else throw Error('The matching initailOption cannot be found')
                 } else {
                     this.getRelatedArr(this.relatedArr[i - 1][idxArr[0]], i - 1)
                     var idx = this.getValue(this.relatedArr[i]).indexOf(arr[i])
                     if(idx > -1) idxArr.unshift(idx)
-                    else throw Error('未找到 initailOption 的匹配结果')
+                    else throw Error('The matching initailOption cannot be found')
                 }
             }
             var idxMark = idxArr.reverse()
@@ -169,6 +167,16 @@
                 this.curDis[i] = -1 * this.liHeight * idxMark[i]
                 if (i >= 1) {
                     this.liNum[i] = this.relatedArr[i].length
+                }
+            }
+            if (isInit) {
+                // 初始化选择器内容
+                this.renderContent()
+                for (var i = 0; i < this.initialOption.length; i++) this.roll(i)
+            } else {
+                for (var i = 0; i < this.initialOption.length; i++) {
+                    this.updateView(i)
+                    this.roll(i)
                 }
             }
         },
@@ -227,31 +235,25 @@
          * 渲染地区选择器的内容
          */
         renderContent: function() {
+            var btnHTML = '<div class="hg-picker-btn-box" id="' + this.box + '">' + this.title +
+                '<div class="hg-picker-btn" id="' + this.abolish + '">' + this.cancelText + '</div>' +
+                '<div class="hg-picker-btn" id="' + this.sure + '">' + this.sureText + '</div>' +
+                '</div>'
+
+            var contentHtml = '<div class="hg-picker-content" id="' + this.content + '">' +
+                '<div class="hg-picker-up-shadow"></div>' +
+                '<div class="hg-picker-down-shadow"></div>' +
+                '<div class="hg-picker-line"></div>' +
+                '</div>'
+
+            // 设置按钮位置
             if (this.style && this.style.btnLocation === 'bottom') {
                 var html = '<div  class="hg-picker-container" id="' + this.container + '">' +
-                    '<div class="hg-picker-content" id="' + this.content + '">' +
-                    '<div class="hg-picker-up-shadow"></div>' +
-                    '<div class="hg-picker-down-shadow"></div>' +
-                    '<div class="hg-picker-line"></div>' +
-                    '</div>' +
-                    '<div class="hg-picker-btn-box" id="' + this.box + '">' +
-                    this.title +
-                    '<div class="hg-picker-btn" id="' + this.abolish + '">' + this.cancelText + '</div>' +
-                    '<div class="hg-picker-btn" id="' + this.sure + '">' + this.sureText + '</div>' +
-                    '</div>' +
+                    contentHtml + btnHTML +
                     '</div>'
             } else {
                 var html = '<div  class="hg-picker-container" id="' + this.container + '">' +
-                    '<div class="hg-picker-btn-box" id="' + this.box + '">' +
-                    this.title +
-                    '<div class="hg-picker-btn" id="' + this.abolish + '">' + this.cancelText + '</div>' +
-                    '<div class="hg-picker-btn" id="' + this.sure + '">' + this.sureText + '</div>' +
-                    '</div>' +
-                    '<div class="hg-picker-content" id="' + this.content + '">' +
-                    '<div class="hg-picker-up-shadow"></div>' +
-                    '<div class="hg-picker-down-shadow"></div>' +
-                    '<div class="hg-picker-line"></div>' +
-                    '</div>' +
+                    btnHTML + contentHtml +
                     '</div>'
             }
             this.wrap.innerHTML = html
