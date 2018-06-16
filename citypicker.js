@@ -165,9 +165,7 @@
             this.cityIndex = idxMark
             for (var i = 0; i < idxMark.length; i++) {
                 this.curDis[i] = -1 * this.liHeight * idxMark[i]
-                if (i >= 1) {
-                    this.liNum[i] = this.relatedArr[i].length
-                }
+                if (i >= 1) this.liNum[i] = this.relatedArr[i].length
             }
             if (isInit) {
                 // 初始化选择器内容
@@ -256,6 +254,7 @@
                     btnHTML + contentHtml +
                     '</div>'
             }
+
             this.wrap.innerHTML = html
             for (var i = 0; i < this.ulCount; i++) {
                 this.renderUl(i)
