@@ -174,7 +174,7 @@
                 this.renderContent()
                 for (var i = 0; i < this.initialOption.length; i++) this.roll(i)
             } else {
-                for (var i = 0; i < this.initialOption.length; i++) {
+                for (var i = 0; i < arr.length; i++) {
                     this.updateView(i)
                     this.roll(i)
                 }
