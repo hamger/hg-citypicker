@@ -36,11 +36,12 @@
     function CityPicker(config) {
         this.inputId = config.inputId // 目标DOM元素ID，必填
         this.data = config.data // json 数据，必填
+        this.initialOption = config.initialOption || null // 规定初始显示的选项，选填
         this.valueKey = config.valueKey || 'value' // 需要展示的数据的键名，选填
         this.childKey = config.childKey || 'child' // 子数据的键名，选填
         this.success = config.success // 确定按钮回调函数，必填
         this.cancel = config.cancel || null // 取消按钮回调函数，选填
-        this.beforeShow = config.beforeShow || function () {} // 规定呼起选择器前的逻辑，选填
+        this.beforeShow = config.beforeShow || null// 规定呼起选择器前的逻辑，选填
         this.title = config.title || '' // 选择器标题，选填
         this.sureText = config.sureText || '确定' // 确定按钮文本，选填
         this.cancelText = config.cancelText || '取消' // 取消按钮文本，选填
@@ -86,6 +87,7 @@
             this.content = this.wrapId + '-content' // 选择器选择区域ID
             this.abolish = this.wrapId + '-abolish' // 选择器取消按钮ID
             this.sure = this.wrapId + '-sure' // 选择器确定按钮ID
+            this.isSelect = true // 是否呼起选择框
         },
         /**
          * 定义初始化 UI 函数
@@ -96,13 +98,21 @@
             // 初始化最高层的参数，最高层的关联数组在未来的操作中都无需更新
             this.relatedArr[0] = this.data
             this.liNum[0] = this.relatedArr[0].length
-            this.cityIndex[0] = 0
-            // 得到各列的关联数组
-            this.getRelatedArr(this.relatedArr[0][0], 0)
-            // 初始化子数据参数，子数据的关联数组会随着选中父数据的改变而变化
-            this.updateChildData(0)
-            // 初始化选择器内容
-            this.renderContent()
+            if(this.initialOption) {
+                this.setInitailOption(this.initialOption)
+                // 初始化选择器内容
+                this.renderContent()
+                for (var i = 0; i < this.initialOption.length; i++) this.roll(i)
+            } else {
+                this.cityIndex[0] = 0
+                this.curDis[0] = 0
+                // 得到各列的关联数组
+                this.getRelatedArr(this.relatedArr[0][0], 0)
+                // 初始化子数据参数，子数据的关联数组会随着选中父数据的改变而变化
+                this.updateChildData(0)
+                // 初始化选择器内容
+                this.renderContent()
+            }
         },
         /**
          * 定义初始化事件函数
@@ -113,7 +123,8 @@
             var container = $id(that.container)
             // 点击目标DOM元素显示选择器
             $id(that.inputId).addEventListener('click', function() {
-                if(!that.beforeShow()) that.show(wrap, container)
+                that.beforeShow && that.beforeShow()
+                if(that.isSelect) that.show(wrap, container)
             })
             // 点击确定按钮隐藏选择器并输出结果
             $id(that.sure).addEventListener('click', function() {
@@ -127,11 +138,39 @@
             })
             // 点击背景隐藏选择器
             wrap.addEventListener('click', function(e) {
-                if (e.target.id === that.wrapId) {
+                if (e.target.id === that.wrapId && wrap.classList.contains("hg-picker-bg-show")) {
                     that.cancel && that.cancel()
                     that.hide(wrap, container)
                 }
             })
+        },
+        /**
+         * 计算并返回当前项所在的位置
+         * Explain : @arr 需要初始显示的项
+         */
+        setInitailOption: function(arr) {
+            var idxArr = []
+            for (var i = 0; i < arr.length; i++) {
+                if (i === 0) {
+                    var idx = this.getValue(this.data).indexOf(arr[i])
+                    if(idx > -1) idxArr.unshift(idx)
+                    else throw Error('未找到 initailOption 的匹配结果')
+                } else {
+                    this.getRelatedArr(this.relatedArr[i - 1][idxArr[0]], i - 1)
+                    var idx = this.getValue(this.relatedArr[i]).indexOf(arr[i])
+                    if(idx > -1) idxArr.unshift(idx)
+                    else throw Error('未找到 initailOption 的匹配结果')
+                }
+            }
+            var idxMark = idxArr.reverse()
+            this.ulCount = idxMark.length
+            this.cityIndex = idxMark
+            for (var i = 0; i < idxMark.length; i++) {
+                this.curDis[i] = -1 * this.liHeight * idxMark[i]
+                if (i >= 1) {
+                    this.liNum[i] = this.relatedArr[i].length
+                }
+            }
         },
         /**
          * 创建选择器外包裹元素
@@ -161,7 +200,7 @@
         * 更新 ulCount 和子数据的参数
         * Explain : @i 当前操作列索引
             当前操作列的关联数组不需要更新，只需更新其子数据中的关联数组
-            ulCount, liNum， cityIndex, curDis
+            ulCount, liNum, cityIndex, curDis
         */
         updateChildData: function(i) {
             this.ulCount = i + 1 + this.renderCount
@@ -218,8 +257,6 @@
             this.wrap.innerHTML = html
             for (var i = 0; i < this.ulCount; i++) {
                 this.renderUl(i)
-                this.cityIndex[i] = 0
-                this.curDis[i] = 0 * this.liHeight
                 this.bindRoll(i)
             }
             this.setStyle()
@@ -470,7 +507,13 @@
         hide: function(wrap, container) {
             wrap.classList.remove('hg-picker-bg-show')
             container.classList.remove('hg-picker-container-up')
-        }
+        },
+        /**
+         * 是否禁止呼起选择框
+         */
+        forbidSelect: function(status) {
+            this.isSelect = !status
+        },
     }
 
     return CityPicker

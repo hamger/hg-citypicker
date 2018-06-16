@@ -20,9 +20,9 @@
 <link rel="stylesheet" type="text/css" href="./picker.min.css" />
 <script src="./citypicker.min.js"></script>
 ```
-实例化地区选择器`new CityPicker(option)`
+实例化地区选择器`new CityPicker(configuration)`
 ```js
-new CityPicker({
+var cityPicker = new CityPicker({
     inputId: 'city-input', // 触发选择的元素ID
     data: city, // 符合格式的数组
     success: function(arr) { // 回调函数
@@ -38,9 +38,11 @@ import CityPicker from 'hg-citypicker';
 ```
 在`vue`中实例化插件，如果数据是请求来的，实例化写在请求成功后的回调中
 ```
+var cityPicker = null
+...
 mounted () {
     this.$nextTick(() => {
-        new CityPicker({
+        cityPicker = new CityPicker({
             inputId: 'city-input',
             data: city,
             success: function(arr) {
@@ -79,24 +81,25 @@ var city = [{
 }]
 ```
 ## 地区选择器配置项
-`option`是一个配置项的对象，可以接受如下选项：
+`configuration`是一个配置项的对象，可以接受如下选项：
 
 key | value | description
 --------|------|-----
 inputId | String | 目标DOM元素ID，必填
 data | Array\<Object\> | 符合格式的数组，必填
+initialOption | Array\<String\> | 规定初始显示的选项，选填
 valueKey | String | 需要展示的数据的键名，默认`value`
 childKey | String | 子数据的键名，默认`child`
 success | Function  |  确定后的回调函数，返回一个结果数组，必填
 cancel | Function  |  点击取消按钮或者背景后的回调函数，选填
-beforeShow | Function | 规定选择框呼起前的逻辑，`return true`可以禁止选择框呼起，选填
+beforeShow | Function | 规定选择框呼起前的逻辑，选填
 title | String | 选择器标题，默认为空
 sureText | String | 确定按钮文本，默认为“确定”
 cancelText | String | 取消按钮文本，默认为“取消”
-a | Number | 惯性滚动加速度（正数, 单位 px/(ms * ms)），规定滚动阻力，加速度越小缓冲距离越长，默认 `0.001`
+a | Number | 惯性滚动加速度（正数, 单位 px/(ms * ms)），规定滚动阻力，加速度越小缓冲距离越长，默认`0.001`
 style | Object | 包含样式配置的对象
 
-`style`对象可以接受如下选项：
+`style`对象可以接受如下选项（以下配置项若仍无法满足需求，可自行修改并引入`picker.css`）：
 
 key | value | description
 --------|------|-----
@@ -113,7 +116,15 @@ upShadowColor | String | 选择器顶部朦层颜色
 downShadowColor | String | 选择器底部朦层颜色
 lineColor | String | 选择器分隔线颜色
 
+## 实例方法
+function | param | description
+-------- | ------ | -----
+cityPicker.forbidSelect(status) | status: `true`/`false` | 是否禁用选择框，`true`表示禁用，`false`表示不禁用
+
 ## Changelog
+### 2018.6.16
+> v1.2.0 * 添加实例方法 forbidSelect ，添加 initialOption 配置项，修复选择器隐藏时依然触发 cancel 回调的问题。
+
 ### 2018.6.15
 > v1.1.0 * 添加 boforeShow 配置项
 

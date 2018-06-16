@@ -54,28 +54,43 @@
         border: 1px solid #bbb;
         border-radius: 8px;
     }
+
+    .btn-box {
+        text-align: center;
+    }
+    .btn {
+        line-height: 20px;
+        padding:0 3px;
+        border: 1px solid #000;
+    }
     </style>
 </head>
 
 <body>
     <article class="wraper">
         <h3 class="title">cityPicker</h3>
-        <div class="inputDiv" id="space-input"/>选择中国城市</div>
+        <div onclick="clickss()" class="inputDiv" id="space-input"/>选择中国城市</div>
+        <div class="btn-box">
+            <button class="btn" onclick="forbid()">禁止选择</button>
+            <button class="btn" onclick="noForbid()">开启选择</button>
+        </div>
     </article>
     <script src="./city.js"></script>
     <script src="./citypicker.js"></script>
     <!-- <script src="./dist/citypicker.min.js"></script> -->
     <script>
-    new CityPicker({
+    var citypicker = new CityPicker({
         inputId: 'space-input',
         data: city, // 符合格式的数组
         cancel: function () {
             console.log('取消城市选择');
         },
-        beforeShow: function () {
-            console.log('beforeSuccess回调触发了')  
-            return false
-        },
+        // beforeShow: function () {
+        //     console.log('beforeSuccess回调触发了')
+        //     this.forbidSelect(true)
+        // },
+        // initialOption: ['湖北', '荆州', '荆州区'],
+        initialOption: ['辽宁', '大连', '中山区'],
         success: function(arr) {
             console.log(arr);
             var arr2 = [];
@@ -85,6 +100,17 @@
             document.getElementById('space-input').innerHTML = arr2;
         }
     });
+
+    function forbid () {
+        citypicker.forbidSelect(true);
+    }
+    function noForbid () {
+        citypicker.forbidSelect(false);
+    }
+
+    function clickss () {
+        // console.log('asfasfd')
+    }
     </script>
 </body>
 
