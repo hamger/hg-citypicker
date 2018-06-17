@@ -17,8 +17,8 @@
 ## 快速使用
 首先引入文件
 ```html
-<link rel="stylesheet" type="text/css" href="./picker.min.css" />
-<script src="./citypicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./picker.css" />
+<script src="./citypicker.js"></script>
 ```
 实例化地区选择器`new CityPicker(configuration)`
 ```js
@@ -33,7 +33,7 @@ var cityPicker = new CityPicker({
 
 如果你使用构建工具，可以这样引入
 ```js
-import 'hg-citypicker/dist/picker.min.css';
+import 'hg-citypicker/picker.css';
 import CityPicker from 'hg-citypicker';
 ```
 在`vue`中实例化插件，如果数据是请求来的，实例化写在请求成功后的回调中
@@ -123,6 +123,9 @@ cityPicker.forbidSelect(status) | status: `true`/`false` | 是否禁用选择框
 cityPicker.setInitailOption(initialOption) | initialOption: Array\<String\> | 变更初始显示的选项，若找不到匹配项，提示`Uncaught Error: The matching initailOption cannot be found`
 
 ## Changelog
+### 2018.6.17
+> v1.2.3 * 删除压缩文件
+
 ### 2018.6.16
 > v1.2.2 * 添加实例方法 setInitailOption
 
