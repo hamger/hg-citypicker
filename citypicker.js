@@ -62,7 +62,6 @@
          * 定义初始化标签函数
          */
         initTab: function() {
-            this.input = $id(this.inputId) // 目标元素
             this.wrapId = this.inputId + '-wrap' // 选择器外包裹元素ID
             this.relatedArr = [] // 存放每列地址的关联数组
             this.cityIndex = [] // 存放每列地址的索引
