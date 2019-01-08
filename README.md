@@ -5,8 +5,7 @@
 移动端的地区选择器，适用于选择嵌套类型的数据。
 
 ## Demo
-<!-- ![hg-citypicker png](http://olislpb6q.bkt.clouddn.com/hg-citypicker2.png) -->
-<a href="https://hamger.github.io/citypicker/" target="_blank">点击这里跳转到演示页面</a>，请在移动端打开或者使用浏览器移动端调试工具打开。
+<a href="https://hamger.github.io/hg-citypicker/" target="_blank">点击这里跳转到演示页面</a>，请在移动端打开或者使用浏览器移动端调试工具打开。
 
 ## Install
 * npm下载：`npm install hg-citypicker`
