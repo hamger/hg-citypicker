@@ -99,7 +99,7 @@ style | Object | 包含样式配置的对象
 `style`对象可以接受如下选项（以下配置项若仍无法满足需求，可自行修改并引入`picker.css`）：
 
 key | value | description
---------|------|-----
+-------- | ------ | -----
 liHeight | Number | 每一个选择栏的高度（px），默认 `40`
 btnHeight | Number | 按钮栏的高度（px），默认 `44`
 btnOffset | String | 按钮离边框的距离，默认 `20px`
@@ -120,37 +120,38 @@ cityPicker.forbidSelect(status) | status: `true`/`false` | 是否禁用选择框
 cityPicker.setInitailOption(initialOption) | initialOption: Array\<String\> | 变更初始显示的选项，若找不到匹配项，提示`Uncaught Error: The matching initailOption cannot be found`
 
 ## Changelog
+
 ### 2018.8.18
-> v1.2.4 * 修改 readme 内容
+> v1.2.4 修改 readme 内容
 
 ### 2018.6.17
-> v1.2.3 * 删除压缩文件
+> v1.2.3 删除压缩文件
 
 ### 2018.6.16
-> v1.2.2 * 添加实例方法 setInitailOption
+> v1.2.2 添加实例方法 setInitailOption
 
-> v1.2.0 * 添加实例方法 forbidSelect ，添加 initialOption 配置项，修复选择器隐藏时依然触发 cancel 回调的问题
+> v1.2.0 添加实例方法 forbidSelect ，添加 initialOption 配置项，修复选择器隐藏时依然触发 cancel 回调的问题
 
 ### 2018.6.15
-> v1.1.0 * 添加 boforeShow 配置项
+> v1.1.0 添加 boforeShow 配置项
 
 ### 2018.4.11
-> v1.0.0 * 修改项目文件结构
+> v1.0.0 修改项目文件结构
 
 ### 2018.2.21
-> v0.2.10 * 添加地区选择器简介
+> v0.2.10 添加地区选择器简介
 
 ### 2018.1.17
-> v0.2.9 * 添加js和css压缩文件
+> v0.2.9 添加js和css压缩文件
 
 ### 2018.1.16
-> v0.2.7 * 取消滑动阈值配置
+> v0.2.7 取消滑动阈值配置
 
 ### 2018.1.15
-> v0.2.4 * 取消定位配置，采用底部上滑显示
+> v0.2.4 取消定位配置，采用底部上滑显示
 
 ### 2018.1.14
-> v0.1.16 * 添加使用说明和API配置说明
+> v0.1.16 添加使用说明和API配置说明
 
 ### 2018.1.3
-> v0.1.12 * 创建地区选择器
+> v0.1.12 创建地区选择器
