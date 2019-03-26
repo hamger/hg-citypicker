@@ -134,13 +134,17 @@ var city = [{
 
 | function                        | param                          | description                                                                                          |
 | ------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| show()                          | `--`                           | 呼起选择框（无视 forbidSelect）                                                                      |
-| hide()                          | `--`                           | 关闭选择框（无视 forbidSelect）                                                                      |
-| setTitle(text)                  | text: `String`                 | 修改标题内容                                                                                             |
+| show()                          | `--`                           | 呼起选择框（受 forbidSelect 限制）                                                                   |
+| hide()                          | `--`                           | 关闭选择框                                                                                           |
+| setTitle(text)                  | text: `String`                 | 修改标题内容                                                                                         |
 | forbidSelect(status)            | status: `true`/`false`         | 是否禁用选择框，`true`表示禁用，`false`表示不禁用，禁用状态下 beforeShow 回调依然会执行              |
 | setInitailOption(initialOption) | initialOption: Array\<String\> | 变更初始显示的选项，若找不到匹配项，提示`Uncaught Error: The matching initailOption cannot be found` |
 
 ## Changelog
+
+### 2019.3.26
+
+> v1.3.1 show 受 forbidSelect 限制
 
 ### 2019.3.25
 
