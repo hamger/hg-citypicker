@@ -11,8 +11,8 @@
 
 ## Install
 
-- npm 下载：`npm install hg-citypicker`
-- Github 下载：[下载地址](https://github.com/hamger/hg-citypicker)
+- yarn 下载：`yarn add hg-citypicker`
+- npm 下载：`npm install --save hg-citypicker`
 
 ## Usage
 
