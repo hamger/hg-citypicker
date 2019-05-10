@@ -1,9 +1,12 @@
 # hg-citypicker
 
-![build passed](https://img.shields.io/badge/build-passed-brightgreen.svg)
-![licence MIT](https://img.shields.io/badge/licence-MIT-orange.svg)
+![build](https://travis-ci.org/hamger/hg-citypicker.svg?branch=master)
+![NPM](https://img.shields.io/npm/l/hg-citypicker.svg?color=orange)
+[![npm](https://img.shields.io/npm/v/hg-citypicker.svg?color=blue)](https://www.npmjs.com/package/hg-citypicker)
 
 移动端的地区选择器，适用于选择嵌套类型的数据。
+
+> 这里是 2.x 的文档，1.x 文档请点击[这里](https://github.com/hamger/hg-citypicker/tree/v1.x)。
 
 ## Demo
 
@@ -13,14 +16,21 @@
 
 - yarn 下载：`yarn add hg-citypicker`
 - npm 下载：`npm install --save hg-citypicker`
+- CND 地址：
+  - js：`https://unpkg.com/hg-citypicker/dist/hg-citypicker.js`
+  - css：`https://unpkg.com/hg-citypicker/picker.css`
 
 ## Usage
 
 首先引入文件
 
 ```html
-<link rel="stylesheet" type="text/css" href="./picker.css" />
-<script src="./citypicker.js"></script>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://unpkg.com/hg-citypicker/picker.css"
+/>
+<script src="https://unpkg.com/hg-citypicker/dist/hg-citypicker.js"></script>
 ```
 
 实例化地区选择器`new CityPicker(configuration)`
@@ -140,62 +150,8 @@ var city = [{
 | forbidSelect(status)            | status: `true`/`false`         | 是否禁用选择框，`true`表示禁用，`false`表示不禁用，禁用状态下 beforeShow 回调依然会执行              |
 | setInitailOption(initialOption) | initialOption: Array\<String\> | 变更初始显示的选项，若找不到匹配项，提示`Uncaught Error: The matching initailOption cannot be found` |
 
-## Todos
+## Change Log
 
-- [ ] **v2.0.0** 使用 ES6 进行项目重构，废弃 inputId 和 beforeShow 配置，废弃 forbidSelect 实例方法，采用更灵活的实例方法调用形式来使用选择器。
+### 2019.5.10
 
-## Changelog
-
-### 2019.3.26
-
-> v1.3.1 show 受 forbidSelect 限制
-
-### 2019.3.25
-
-> v1.3.0 支持 inputId 不填，添加实例方法 show 、 hide 和 setTitle
-
-### 2018.8.18
-
-> v1.2.4 修改 readme 内容
-
-### 2018.6.17
-
-> v1.2.3 删除压缩文件
-
-### 2018.6.16
-
-> v1.2.2 添加实例方法 setInitailOption
-
-> v1.2.0 添加实例方法 forbidSelect ，添加 initialOption 配置项，修复选择器隐藏时依然触发 cancel 回调的问题
-
-### 2018.6.15
-
-> v1.1.0 添加 boforeShow 配置项
-
-### 2018.4.11
-
-> v1.0.0 修改项目文件结构
-
-### 2018.2.21
-
-> v0.2.10 添加地区选择器简介
-
-### 2018.1.17
-
-> v0.2.9 添加 js 和 css 压缩文件
-
-### 2018.1.16
-
-> v0.2.7 取消滑动阈值配置
-
-### 2018.1.15
-
-> v0.2.4 取消定位配置，采用底部上滑显示
-
-### 2018.1.14
-
-> v0.1.16 添加使用说明和 API 配置说明
-
-### 2018.1.3
-
-> v0.1.12 创建地区选择器
+> v2.0.0 使用 ES6 重构项目

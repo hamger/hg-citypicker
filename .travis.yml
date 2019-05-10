@@ -1,0 +1,14 @@
+sudo: false
+language: node_js
+node_js:
+  - "8"
+  - "6"
+env:
+  - CODECOV_TOKEN=11ed29c1-ded7-414a-94c3-d0cca850b293
+cache:
+  npm: true
+  directories:
+    - "node_modules"
+script:
+  - npm run test
+  - npm run codecov

@@ -1,19 +1,19 @@
 /**
  * Created by Hanger on 2017/8/31.
  */
-(function(global, factory) {
+(function (global, factory) {
   typeof exports === "object" && typeof module !== "undefined"
     ? (module.exports = factory())
     : typeof define === "function" && define.amd
-    ? define(factory)
-    : (global.CityPicker = factory());
-})(this, function() {
+      ? define(factory)
+      : (global.CityPicker = factory());
+})(this, function () {
   /**
    * 生成 UUID (Universally Unique IDentifier, 通用 唯一标识符)
    */
   function generateUUID() {
     var d = new Date().getTime();
-    var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
+    var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (
       c
     ) {
       var r = (d + Math.random() * 16) % 16 | 0;
@@ -78,7 +78,7 @@
     /**
      * 定义初始化标签函数
      */
-    initTab: function() {
+    initTab: function () {
       this.wrapId = generateUUID() + "-wrap"; // 选择器外包裹元素ID
       this.relatedArr = []; // 存放每列地址的关联数组
       this.cityIndex = []; // 存放每列地址的索引
@@ -111,7 +111,7 @@
     /**
      * 定义初始化 UI 函数
      */
-    initUI: function() {
+    initUI: function () {
       // 创建选择器的外包裹元素
       this.createContainer();
       // 初始化最高层的参数，最高层的关联数组在未来的操作中都无需更新
@@ -133,32 +133,32 @@
     /**
      * 定义初始化事件函数
      */
-    initEvent: function() {
+    initEvent: function () {
       var that = this;
       var wrap = that.wrap;
 
       that.container = $id(that.containerId);
       // 点击目标元素显示选择器
       if (that.inputId) {
-        $id(that.inputId).addEventListener("click", function() {
+        $id(that.inputId).addEventListener("click", function () {
           that.beforeShow && that.beforeShow();
           that.show();
         });
       }
       // 点击保存按钮隐藏选择器并输出结果
-      $id(that.sureId).addEventListener("click", function() {
+      $id(that.sureId).addEventListener("click", function () {
         that.success(that.getResult());
         that.hide();
       });
 
       // 点击取消隐藏选择器
-      $id(that.abolishId).addEventListener("click", function() {
+      $id(that.abolishId).addEventListener("click", function () {
         that.cancel && that.cancel();
         that.hide();
       });
 
       // 点击背景隐藏选择器
-      wrap.addEventListener("click", function(e) {
+      wrap.addEventListener("click", function (e) {
         if (
           e.target.id === that.wrapId &&
           wrap.classList.contains("hg-picker-bg-show")
@@ -173,7 +173,7 @@
      * Explain : @arr 需要初始显示的项
      *  @isInit 是否是初始化状态
      */
-    setInitailOption: function(arr, isInit) {
+    setInitailOption: function (arr, isInit) {
       var idxArr = [];
       for (var i = 0; i < arr.length; i++) {
         if (i === 0) {
@@ -208,7 +208,7 @@
     /**
      * 创建选择器外包裹元素
      */
-    createContainer: function() {
+    createContainer: function () {
       var div = document.createElement("div");
       div.id = this.wrapId;
       document.body.appendChild(div);
@@ -220,7 +220,7 @@
         * Explain : @obj 当前选中数据的子数据
             @i 当前操作列索引
         */
-    getRelatedArr: function(obj, i) {
+    getRelatedArr: function (obj, i) {
       if (typeof obj === "object") {
         if (this.childKey in obj && obj[this.childKey].length > 0) {
           this.relatedArr[i + 1] = obj[this.childKey];
@@ -235,7 +235,7 @@
             当前操作列的关联数组不需要更新，只需更新其子数据中的关联数组
             ulCount, liNum, cityIndex, curDis
         */
-    updateChildData: function(i) {
+    updateChildData: function (i) {
       this.ulCount = i + 1 + this.renderCount;
       for (var j = i + 1; j < this.ulCount; j++) {
         this.liNum[j] = this.relatedArr[j].length;
@@ -248,7 +248,7 @@
      * Return : Array
      * Explain : @arr 需要被取值的对象数组
      */
-    getValue: function(arr) {
+    getValue: function (arr) {
       var tempArr = [];
       for (var i = 0; i < arr.length; i++) {
         if (typeof arr[i][this.valueKey] === "object")
@@ -260,7 +260,7 @@
     /**
      * 渲染地区选择器的内容
      */
-    renderContent: function() {
+    renderContent: function () {
       var btnHTML =
         '<div class="hg-picker-btn-box" id="' +
         this.boxId +
@@ -321,7 +321,7 @@
     /**
      * 设置选择器样式
      */
-    setStyle: function() {
+    setStyle: function () {
       if (!this.style) return;
       var obj = this.style;
       var container = $id(this.containerId);
@@ -371,7 +371,7 @@
      * 渲染 ul 元素
      * Explain : @i 需要处理的列的索引
      */
-    renderUl: function(i) {
+    renderUl: function (i) {
       var parentNode = $id(this.contentId);
       var newUl = document.createElement("ul");
       newUl.setAttribute("id", this.wrapId + "-ul-" + i);
@@ -386,10 +386,10 @@
      * 渲染 li 元素
      * Explain : @i 需要处理的列的索引
      */
-    renderLi: function(i) {
+    renderLi: function (i) {
       this.cityUl[i].innerHTML = "";
       var lis = "<li></li><li></li>";
-      this.getValue(this.relatedArr[i]).forEach(function(val, index) {
+      this.getValue(this.relatedArr[i]).forEach(function (val, index) {
         lis += "<li>" + val + "</li>";
       });
       lis += "<li></li><li></li>";
@@ -400,7 +400,7 @@
     /**
      * 设置 ul 元素宽度
      */
-    setUlWidth: function() {
+    setUlWidth: function () {
       for (var i = 0; i < this.ulCount; i++) {
         this.cityUl[i].style.width = (100 / this.ulCount).toFixed(2) + "%";
       }
@@ -409,25 +409,25 @@
      * 绑定滑动事件
      * Explain : @i 需要处理的列的索引
      */
-    bindRoll: function(i) {
+    bindRoll: function (i) {
       var that = this;
       that.cityUl[i].addEventListener(
         "touchstart",
-        function() {
+        function () {
           that.touch(i);
         },
         false
       );
       that.cityUl[i].addEventListener(
         "touchmove",
-        function() {
+        function () {
           that.touch(i);
         },
         false
       );
       that.cityUl[i].addEventListener(
         "touchend",
-        function() {
+        function () {
           that.touch(i);
         },
         true
@@ -438,7 +438,7 @@
      * Explain : @i 需要处理的列的索引
      * @time 滚动持续时间
      */
-    roll: function(i, time) {
+    roll: function (i, time) {
       if (this.curDis[i] || this.curDis[i] === 0) {
         this.cityUl[i].style.transform =
           "translate3d(0, " + this.curDis[i] + "px, 0)";
@@ -455,7 +455,7 @@
      * 地区选择器触摸事件
      * Explain : @i 需要处理的列的索引
      */
-    touch: function(i) {
+    touch: function (i) {
       var event = event || window.event;
       event.preventDefault();
       switch (event.type) {
@@ -509,7 +509,7 @@
      * Explain : @v 速度（正负表示运动方向, 单位 px/ms）
      * @a 加速度（正数, 单位 px/(ms * ms)）
      */
-    calculateBuffer: function(v, a) {
+    calculateBuffer: function (v, a) {
       if (Math.abs(v) < 0.25) return 0;
       else return (v / Math.abs(v)) * ((0.5 * v * v) / a);
     },
@@ -517,7 +517,7 @@
      * 固定 ul 最终的位置、更新视图
      * Explain : @i 需要处理的列的索引
      */
-    fixate: function(i) {
+    fixate: function (i) {
       this.renderCount = 0;
       this.getPosition(i);
       this.getRelatedArr(this.relatedArr[i][this.cityIndex[i]], i);
@@ -529,7 +529,7 @@
      * 获取定位数据
      * Explain : @i 需要处理的列的索引
      */
-    getPosition: function(i) {
+    getPosition: function (i) {
       if (this.curDis[i] <= -1 * (this.liNum[i] - 1) * this.liHeight)
         this.cityIndex[i] = this.liNum[i] - 1;
       else if (this.curDis[i] >= 0) this.cityIndex[i] = 0;
@@ -540,7 +540,7 @@
      * 更新内容区视图
      * Explain : @i 需要处理的列的索引
      */
-    updateView: function(i) {
+    updateView: function (i) {
       var curUlCount = $id(this.contentId).children.length - 3;
       if (this.ulCount == curUlCount) {
         // 列数不变的情况
@@ -571,7 +571,7 @@
     /**
      * 获取结果的数组
      */
-    getResult: function() {
+    getResult: function () {
       var arr = [];
       for (var i = 0; i < this.ulCount; i++) {
         arr.push(this.relatedArr[i][this.cityIndex[i]]);
@@ -581,7 +581,7 @@
     /**
      * 显示选择器
      */
-    show: function() {
+    show: function () {
       if (!this.isCanSelect) return;
       this.wrap.classList.add("hg-picker-bg-show");
       this.container.classList.add("hg-picker-container-up");
@@ -589,20 +589,20 @@
     /**
      * 隐藏选择器
      */
-    hide: function() {
+    hide: function () {
       this.wrap.classList.remove("hg-picker-bg-show");
       this.container.classList.remove("hg-picker-container-up");
     },
     /**
      * 是否禁止呼起选择框
      */
-    forbidSelect: function(status) {
+    forbidSelect: function (status) {
       this.isCanSelect = !status;
     },
     /**
      * 设置选择器标题
      */
-    setTitle: function(text) {
+    setTitle: function (text) {
       $id(this.titleId).innerHTML = text;
     }
   };

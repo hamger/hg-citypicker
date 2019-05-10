@@ -8,7 +8,6 @@
     <meta name="screen-orientation" content="portrait" />
     <title>hg-citypicker</title>
     <link rel="shortcut icon" href="http://olislpb6q.bkt.clouddn.com/hg-head.png" />
-    <link rel="stylesheet" type="text/css" href="./picker.css" />
     <style>
     * {
         padding: 0;
@@ -78,48 +77,7 @@
             <button class="btn" onclick="setInitailOption()">设置初始显示</button>
         </div>
     </article>
-    <script src="./city.js"></script>
-    <script src="./dist/hg-citypicker.js"></script>
-    <script>
-    var picker = new CityPicker({
-        // inputId: 'city-input',
-        data: city, // 符合格式的数组
-        cancel: function () {
-            console.log('取消城市选择');
-        },
-        // beforeShow: function () {
-        //     console.log('beforeSuccess回调触发了')
-        //     this.forbidSelect(true)
-        // },
-        initialOption: ['辽宁', '大连', '中山区'],
-        success: function(arr) {
-            console.log(arr);
-            var arr2 = [];
-            arr.forEach(function(val) {
-                arr2.push(val.value);
-            });
-            document.getElementById('city-input' + this.pickerNumber).innerHTML = arr2;
-        }
-    });
-
-    function forbid () {
-        picker.forbidSelect(true);
-    }
-
-    function noForbid () {
-        picker.forbidSelect(false);
-    }
-
-    function setInitailOption () {
-        picker.setInitailOption(['湖北', '荆州', '荆州区'])
-    }
-
-    function select (number) {
-        picker.pickerNumber = number
-        picker.setTitle(number + '号选择器')
-        picker.show()
-    }
-    </script>
+    <script src="../city.js"></script>
 </body>
 
 </html>
