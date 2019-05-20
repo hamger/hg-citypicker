@@ -8,7 +8,6 @@ import {
 
 export default class CityPicker {
   constructor(config) {
-    this.inputId = config.inputId; // 目标DOM元素ID，选填
     this.data = config.data; // json 数据，必填
     this.initialOption = config.initialOption || null; // 规定初始显示的选项，选填
     this.valueKey = config.valueKey || "value"; // 需要展示的数据的键名，选填
@@ -88,13 +87,7 @@ export default class CityPicker {
     var wrap = that.wrap;
 
     that.container = $id(that.containerId);
-    // 点击目标元素显示选择器
-    if (that.inputId) {
-      $id(that.inputId).addEventListener("click", function () {
-        that.beforeShow && that.beforeShow();
-        that.show();
-      });
-    }
+
     // 点击保存按钮隐藏选择器并输出结果
     $id(that.sureId).addEventListener("click", function () {
       that.success(that.getResult());

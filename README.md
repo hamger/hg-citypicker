@@ -37,7 +37,6 @@
 
 ```js
 var cityPicker = new CityPicker({
-  inputId: "city-input", // 触发选择的元素ID
   data: city, // 符合格式的数组
   success: function(arr) {
     // 回调函数
@@ -61,7 +60,6 @@ var cityPicker = null
 mounted () {
     this.$nextTick(() => {
         cityPicker = new CityPicker({
-            inputId: 'city-input',
             data: city,
             success: function(arr) {
                 console.log(arr);
@@ -109,7 +107,6 @@ var city = [{
 
 | key           | value           | description                                                                                   |
 | ------------- | --------------- | --------------------------------------------------------------------------------------------- |
-| inputId       | String          | 目标 DOM 元素 ID，必填                                                                        |
 | data          | Array\<Object\> | 符合格式的数组，必填                                                                          |
 | initialOption | Array\<String\> | 规定初始显示的选项，选填                                                                      |
 | valueKey      | String          | 需要展示的数据的键名，默认`value`                                                             |
