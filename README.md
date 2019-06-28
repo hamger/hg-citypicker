@@ -113,7 +113,6 @@ var city = [{
 | childKey      | String          | 子数据的键名，默认`child`                                                                     |
 | success       | Function        | 确定后的回调函数，返回一个结果数组，必填                                                      |
 | cancel        | Function        | 点击取消按钮或者背景后的回调函数，选填                                                        |
-| beforeShow    | Function        | 规定选择框呼起前的逻辑，选填                                                                  |
 | title         | String          | 选择器标题，默认为空                                                                          |
 | sureText      | String          | 确定按钮文本，默认为“确定”                                                                    |
 | cancelText    | String          | 取消按钮文本，默认为“取消”                                                                    |
@@ -141,10 +140,9 @@ var city = [{
 
 | function                        | param                          | description                                                                                          |
 | ------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| show()                          | `--`                           | 呼起选择框（受 forbidSelect 限制）                                                                   |
+| show()                          | `--`                           | 呼起选择框                                                                                           |
 | hide()                          | `--`                           | 关闭选择框                                                                                           |
 | setTitle(text)                  | text: `String`                 | 修改标题内容                                                                                         |
-| forbidSelect(status)            | status: `true`/`false`         | 是否禁用选择框，`true`表示禁用，`false`表示不禁用，禁用状态下 beforeShow 回调依然会执行              |
 | setInitailOption(initialOption) | initialOption: Array\<String\> | 变更初始显示的选项，若找不到匹配项，提示`Uncaught Error: The matching initailOption cannot be found` |
 
 ## Change Log

@@ -73,8 +73,6 @@
         <h3 class="title">cityPicker2</h3>
         <div onclick="select(2)" class="inputDiv" id="city-input2"/>选择中国城市</div>
         <div class="btn-box">
-            <button class="btn" onclick="forbid()">禁止选择</button>
-            <button class="btn" onclick="noForbid()">开启选择</button>
             <button class="btn" onclick="setInitailOption()">设置初始显示</button>
         </div>
     </article>
@@ -86,10 +84,6 @@
         cancel: function () {
             console.log('取消城市选择');
         },
-        // beforeShow: function () {
-        //     console.log('beforeSuccess回调触发了')
-        //     this.forbidSelect(true)
-        // },
         initialOption: ['辽宁', '大连', '中山区'],
         success: function(arr) {
             console.log(arr);
@@ -100,14 +94,6 @@
             document.getElementById('city-input' + this.pickerNumber).innerHTML = arr2;
         }
     });
-
-    function forbid () {
-        picker.forbidSelect(true);
-    }
-
-    function noForbid () {
-        picker.forbidSelect(false);
-    }
 
     function setInitailOption () {
         picker.setInitailOption(['湖北', '荆州', '荆州区'])

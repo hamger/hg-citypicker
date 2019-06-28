@@ -14,7 +14,6 @@ export default class CityPicker {
     this.childKey = config.childKey || "child"; // 子数据的键名，选填
     this.success = config.success; // 确定按钮回调函数，必填
     this.cancel = config.cancel || null; // 取消按钮回调函数，选填
-    this.beforeShow = config.beforeShow || null; // 规定呼起选择器前的逻辑，选填
     this.title = config.title || ""; // 选择器标题，选填
     this.sureText = config.sureText || "确定"; // 确定按钮文本，选填
     this.cancelText = config.cancelText || "取消"; // 取消按钮文本，选填
@@ -525,12 +524,6 @@ export default class CityPicker {
   hide() {
     this.wrap.classList.remove("hg-picker-bg-show");
     this.container.classList.remove("hg-picker-container-up");
-  }
-  /**
-   * 是否禁止呼起选择框
-   */
-  forbidSelect(status) {
-    this.isCanSelect = !status;
   }
   /**
    * 设置选择器标题
