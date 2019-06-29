@@ -69,9 +69,9 @@
 <body>
     <article class="wraper">
         <h3 class="title">cityPicker1</h3>
-        <div onclick="select(1)" class="inputDiv" id="city-input1"/>选择中国城市</div>
+        <div onclick="select(1)" class="inputDiv" id="city-input1">选择中国城市</div>
         <h3 class="title">cityPicker2</h3>
-        <div onclick="select(2)" class="inputDiv" id="city-input2"/>选择中国城市</div>
+        <div onclick="select(2)" class="inputDiv" id="city-input2">选择中国城市</div>
         <div class="btn-box">
             <button class="btn" onclick="setInitailOption()">设置初始显示</button>
         </div>
@@ -85,23 +85,25 @@
             console.log('取消城市选择');
         },
         initialOption: ['辽宁', '大连', '中山区'],
-        success: function(arr) {
+        onOk: function(arr) {
             console.log(arr);
             var arr2 = [];
             arr.forEach(function(val) {
                 arr2.push(val.value);
             });
-            document.getElementById('city-input' + this.pickerNumber).innerHTML = arr2;
+            document.getElementById('city-input' + this.get('pickerNumber')).innerHTML = arr2;
         }
     });
 
     function setInitailOption () {
-        picker.setInitailOption(['湖北', '荆州', '荆州区'])
+        picker.set({initialOption: ['湖北', '荆州', '荆州区']})
     }
 
     function select (number) {
-        picker.pickerNumber = number
-        picker.setTitle(number + '号选择器')
+        picker.set({
+            pickerNumber: number,
+            title: number + '号选择器'
+        });
         picker.show()
     }
     </script>

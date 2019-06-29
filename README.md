@@ -38,7 +38,7 @@
 ```js
 var cityPicker = new CityPicker({
   data: city, // 符合格式的数组
-  success: function(arr) {
+  onOk: function(arr) {
     // 回调函数
     console.log(arr);
   }
@@ -58,14 +58,14 @@ import CityPicker from "hg-citypicker";
 var cityPicker = null
 ...
 mounted () {
-    this.$nextTick(() => {
-        cityPicker = new CityPicker({
-            data: city,
-            success: function(arr) {
-                console.log(arr);
-            }
-        });
+  this.$nextTick(() => {
+    cityPicker = new CityPicker({
+      data: city,
+      onOk: function(arr) {
+        console.log(arr);
+      }
     });
+  });
 }
 ```
 
@@ -84,7 +84,7 @@ var city = [{
 }]
 ```
 
-由于考虑到各种复杂的情况，返回的结果数据比较全面。如果你只需要选中的数据，只需要获取数组每项的`value`（该字段可自定义）属性值即可。例如你选择了`广东-广州-越秀`，成功的回调函数中会接收如下形式的数组
+由于考虑到各种复杂的情况，返回的结果数据比较全面。如果你只需要选中的数据，只需要获取数组每项的`value`（该字段可通过`valueKey`自定义）属性值即可。例如你选择了`广东-广州-越秀`，成功的回调函数中会接收如下形式的数组
 
 ```js
 [{
@@ -101,20 +101,22 @@ var city = [{
 }]
 ```
 
+调用实例方法 show 呼起选择器，完整案例见[这里](./index.html)。
+
 ## 配置项
 
 `configuration`是一个配置项的对象，可以接受如下选项：
 
 | key           | value           | description                                                                                   |
-| ------------- | --------------- | --------------------------------------------------------------------------------------------- |
+|---------------|-----------------|-----------------------------------------------------------------------------------------------|
 | data          | Array\<Object\> | 符合格式的数组，必填                                                                          |
 | initialOption | Array\<String\> | 规定初始显示的选项，选填                                                                      |
 | valueKey      | String          | 需要展示的数据的键名，默认`value`                                                             |
 | childKey      | String          | 子数据的键名，默认`child`                                                                     |
-| success       | Function        | 确定后的回调函数，返回一个结果数组，必填                                                      |
+| onOk          | Function        | 确定后的回调函数，返回一个结果数组，必填                                                      |
 | cancel        | Function        | 点击取消按钮或者背景后的回调函数，选填                                                        |
 | title         | String          | 选择器标题，默认为空                                                                          |
-| sureText      | String          | 确定按钮文本，默认为“确定”                                                                    |
+| okText        | String          | 确定按钮文本，默认为“确定”                                                                    |
 | cancelText    | String          | 取消按钮文本，默认为“取消”                                                                    |
 | a             | Number          | 惯性滚动加速度（正数, 单位 px/(ms \* ms)），规定滚动阻力，加速度越小缓冲距离越长，默认`0.001` |
 | style         | Object          | 包含样式配置的对象                                                                            |
@@ -122,7 +124,7 @@ var city = [{
 `style`对象可以接受如下选项（以下配置项若仍无法满足需求，可自行修改并引入`picker.css`）：
 
 | key             | value  | description                         |
-| --------------- | ------ | ----------------------------------- |
+|-----------------|--------|-------------------------------------|
 | liHeight        | Number | 每一个选择栏的高度（px），默认 `40` |
 | btnHeight       | Number | 按钮栏的高度（px），默认 `44`       |
 | btnOffset       | String | 按钮离边框的距离，默认 `20px`       |
@@ -138,12 +140,14 @@ var city = [{
 
 ## 实例方法
 
-| function                        | param                          | description                                                                                          |
-| ------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
-| show()                          | `--`                           | 呼起选择框                                                                                           |
-| hide()                          | `--`                           | 关闭选择框                                                                                           |
-| setTitle(text)                  | text: `String`                 | 修改标题内容                                                                                         |
-| setInitailOption(initialOption) | initialOption: Array\<String\> | 变更初始显示的选项，若找不到匹配项，提示`Uncaught Error: The matching initailOption cannot be found` |
+| function | param      | description    |
+|----------|------------|----------------|
+| show()   | `--`       | 呼起选择框     |
+| hide()   | `--`       | 关闭选择框     |
+| set(obj) | obj:Object | 设置选择器属性 |
+| get(key) | key:String | 获取选择框属性 |
+
+> 参数 obj 中指定`title`、`cancelText`、`okText`、`valueKey`、`childKey`、`a`、`onOk`、`onCancel`、`initialOption`的值，会修改对应的选择器配置
 
 ## Change Log
 

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import CityPicker from '../index';
+import CityPicker from '../index'
 
 const data = [
   [
@@ -8,10 +8,10 @@ const data = [
     { value: '平民', description: 'xx' },
     { value: '女巫', description: 'xx' },
     { value: '猎人', description: 'xx' },
-    { value: '白痴', description: 'xx' },
+    { value: '白痴', description: 'xx' }
   ],
-  ['存活', '死亡', '吃刀', '票出', '吃毒', '中枪'],
-];
+  ['存活', '死亡', '吃刀', '票出', '吃毒', '中枪']
+]
 
 const picker = new CityPicker({
   data,
@@ -29,41 +29,41 @@ const picker = new CityPicker({
     contentBgColor: 'red',
     upShadowColor: 'red',
     downShadowColor: 'red',
-    lineColor: 'red',
+    lineColor: 'red'
   },
-  cancel() {
-    console.log('取消选择');
+  cancel () {
+    console.log('取消选择')
   },
-  success(arr) {
-    console.log(arr);
-    document.getElementById(`para-input${this.playerNumber}`).innerHTML = arr;
-  },
-});
+  onOk (arr) {
+    console.log(arr)
+    document.getElementById(`para-input${this.pickerNumber}`).innerHTML = arr
+  }
+})
 const picker2 = new CityPicker({
   data,
-  success(arr) {
-    console.log(arr);
-    document.getElementById(`para-input${this.playerNumber}`).innerHTML = arr;
-  },
-});
+  onOk (arr) {
+    console.log(arr)
+    document.getElementById(`para-input${this.pickerNumber}`).innerHTML = arr
+  }
+})
 
 describe('picker test', () => {
   beforeAll(() => {
     console.error = error => {
-      throw new Error(error);
-    };
-  });
+      throw new Error(error)
+    }
+  })
 
   it('picker', () => {
-    picker.show();
-    picker.hide();
-    picker.setTitle('1号玩家');
-    expect(picker.title).toBe('1号玩家');
-  });
+    picker.show()
+    picker.hide()
+    picker.setTitle('1号玩家')
+    expect(picker.title).toBe('1号玩家')
+  })
   it('picker2', () => {
     expect(picker2.getResult()).toEqual([
       { value: '预言家', description: '每晚可查验一名玩家' },
-      '存活',
-    ]);
-  });
-});
+      '存活'
+    ])
+  })
+})
