@@ -72,33 +72,40 @@ mounted () {
 `data`选项接受的数据格式如下，其中的键名`value`和`child`可以根据实际需要通过配置项`valueKey`和`childKey`设置
 
 ```js
-var city = [{
-  value: "北京",
-  child: [{value: "东城区"}, {value: "西城区"}]
-}, {
-  value: "广东",
-  child: [{
-    value: "广州",
-    child: [{value: "越秀区"}, {value: "荔湾区"}]
+var city = [
+  {
+    value: "北京",
+    child: [{value: "东城区"}, {value: "西城区"}]
+  },
+  {
+    value: "广东",
+    child: [{
+      value: "广州",
+      child: [{value: "越秀区"}, {value: "荔湾区"}]
+    }]
   }
-}]
+]
 ```
 
-由于考虑到各种复杂的情况，返回的结果数据比较全面。如果你只需要选中的数据，只需要获取数组每项的`value`（该字段可通过`valueKey`自定义）属性值即可。例如你选择了`广东-广州-越秀`，成功的回调函数中会接收如下形式的数组
+由于考虑到各种复杂的情况，返回的结果数据比较全面。例如你选择了`广东-广州-越秀区`，成功的回调函数中会接收如下形式的数组
 
 ```js
-[{
-  value: "广东",
-  child: [{
-    value: "广州",
-    child: [{value: "越秀区"}, {value: "荔湾区"}]
+[
+  {
+    value: '广东',
+    child: [{
+      value: '广州',
+      child: [{ value: '越秀区' }, { value: '荔湾区' }]
+    }]
+  },
+  {
+    value: '广州',
+    child: [{ value: '越秀区' }, { value: '荔湾区' }]
+  },
+  {
+    value: '越秀区'
   }
-},{
-  value: "广州",
-  child: [{value: "越秀区"}, {value: "荔湾区"}
-},{
-  value: "越秀区"
-}]
+]
 ```
 
 调用实例方法 show 呼起选择器，完整案例见[这里](https://github.com/hamger/hg-citypicker/blob/master/index.html)。

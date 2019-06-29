@@ -517,12 +517,6 @@ export default class CityPicker {
     this.container.classList.remove('hg-picker-container-up')
   }
   /**
-   * 设置选择器标题
-   */
-  setTitle (text) {
-    $id(this.titleId).innerHTML = text
-  }
-  /**
    * 设置选择器属性
    */
   set (obj) {

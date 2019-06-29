@@ -1,21 +1,22 @@
 /* eslint-env jest */
 import CityPicker from '../index'
 
-const data = [
-  [
-    { value: '预言家', description: '每晚可查验一名玩家' },
-    { value: '狼人', description: '每晚可击杀一名玩家' },
-    { value: '平民', description: 'xx' },
-    { value: '女巫', description: 'xx' },
-    { value: '猎人', description: 'xx' },
-    { value: '白痴', description: 'xx' }
-  ],
-  ['存活', '死亡', '吃刀', '票出', '吃毒', '中枪']
+var city = [
+  {
+    value: '广东',
+    child: [{
+      value: '广州',
+      child: [{ value: '越秀区' }, { value: '荔湾区' }]
+    }]
+  },
+  {
+    value: '北京',
+    child: [{ value: '东城区' }, { value: '西城区' }]
+  }
 ]
 
 const picker = new CityPicker({
-  data,
-  title: '玩家属性',
+  data: city,
   style: {
     liHeight: 42,
     btnHeight: 50,
@@ -36,14 +37,12 @@ const picker = new CityPicker({
   },
   onOk (arr) {
     console.log(arr)
-    document.getElementById(`para-input${this.pickerNumber}`).innerHTML = arr
   }
 })
 const picker2 = new CityPicker({
-  data,
+  data: city,
   onOk (arr) {
     console.log(arr)
-    document.getElementById(`para-input${this.pickerNumber}`).innerHTML = arr
   }
 })
 
@@ -57,13 +56,36 @@ describe('picker test', () => {
   it('picker', () => {
     picker.show()
     picker.hide()
-    picker.setTitle('1号玩家')
-    expect(picker.title).toBe('1号玩家')
+    picker.set({
+      pickerNumber: 1,
+      title: '选择城市',
+      cancelText: 'cancel',
+      okText: 'ok',
+      initialOption: ['广东', '广州', '越秀区']
+    })
+    expect(picker.get('title')).toBe('选择城市')
+    expect(picker.get('pickerNumber')).toBe(1)
+    expect(picker.pickerNumber).toBe(undefined)
   })
+
   it('picker2', () => {
-    expect(picker2.getResult()).toEqual([
-      { value: '预言家', description: '每晚可查验一名玩家' },
-      '存活'
-    ])
+    expect(picker2.getResult()).toEqual(
+      [
+        {
+          value: '广东',
+          child: [{
+            value: '广州',
+            child: [{ value: '越秀区' }, { value: '荔湾区' }]
+          }]
+        },
+        {
+          value: '广州',
+          child: [{ value: '越秀区' }, { value: '荔湾区' }]
+        },
+        {
+          value: '越秀区'
+        }
+      ]
+    )
   })
 })
