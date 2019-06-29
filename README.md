@@ -101,7 +101,7 @@ var city = [{
 }]
 ```
 
-调用实例方法 show 呼起选择器，完整案例见[这里](./index.html)。
+调用实例方法 show 呼起选择器，完整案例见[这里](https://github.com/hamger/hg-citypicker/blob/master/index.html)。
 
 ## 配置项
 
