@@ -84,31 +84,28 @@ export default class CityPicker {
    * 定义初始化事件函数
    */
   initEvent () {
-    let that = this
-    let wrap = that.wrap
-
-    that.container = $id(that.containerId)
+    this.container = $id(this.containerId)
 
     // 点击保存按钮隐藏选择器并输出结果
-    $id(that.okId).addEventListener('click', function () {
-      that.onOk(that.getResult())
-      that.hide()
+    $id(this.okId).addEventListener('click', () => {
+      this.onOk(this.getResult())
+      this.hide()
     })
 
     // 点击取消隐藏选择器
-    $id(that.cancelId).addEventListener('click', function () {
-      that.onCancel && that.onCancel()
-      that.hide()
+    $id(this.cancelId).addEventListener('click', () => {
+      this.onCancel && this.onCancel()
+      this.hide()
     })
 
     // 点击背景隐藏选择器
-    wrap.addEventListener('click', function (e) {
+    this.wrap.addEventListener('click', (e) => {
       if (
-        e.target.id === that.wrapId &&
-        wrap.classList.contains('hg-picker-bg-show')
+        e.target.id === this.wrapId &&
+        this.wrap.classList.contains('hg-picker-bg-show')
       ) {
-        that.onCancel && that.onCancel()
-        that.hide()
+        this.onCancel && this.onCancel()
+        this.hide()
       }
     })
   }
@@ -347,25 +344,24 @@ export default class CityPicker {
    * Explain : @i 需要处理的列的索引
    */
   bindRoll (i) {
-    let that = this
-    that.cityUl[i].addEventListener(
+    this.cityUl[i].addEventListener(
       'touchstart',
-      function () {
-        that.touch(i)
+      () => {
+        this.touch(i)
       },
       false
     )
-    that.cityUl[i].addEventListener(
+    this.cityUl[i].addEventListener(
       'touchmove',
-      function () {
-        that.touch(i)
+      () => {
+        this.touch(i)
       },
       false
     )
-    that.cityUl[i].addEventListener(
+    this.cityUl[i].addEventListener(
       'touchend',
-      function () {
-        that.touch(i)
+      () => {
+        this.touch(i)
       },
       true
     )
