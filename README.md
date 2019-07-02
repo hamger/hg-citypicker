@@ -5,7 +5,7 @@
 
 移动端的地区选择器，适用于选择嵌套类型的数据。
 
-> 1.x 版本于 2019年7月29号 之后停止维护，推荐使用 2.x 版本
+> 1.x 版本于 2019年7月29号 停止维护，推荐使用 [2.x 版本](https://github.com/hamger/hg-citypicker/tree/master)
 
 ## Demo
 
