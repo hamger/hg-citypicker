@@ -190,7 +190,7 @@ var city = [
 
 ### 2020.3.25
 
-> v2.1.0 实现选择器销毁的实例方法，配置项 initValue 变更为 initValue
+> v2.1.0 实现选择器销毁的实例方法，配置项 initialOption 变更为 initValue
 
 ### 2019.6.29
 
