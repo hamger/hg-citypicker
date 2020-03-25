@@ -5,6 +5,7 @@
   "description": "a citypicker in the mobile terminal",
   "scripts": {
     "dev": "webpack-dev-server --mode=development",
+    "start": "npm run dev",
     "build": "webpack --mode=production",
     "test": "cross-env BABEL_OUTPUT=commonjs jest",
     "lint": "eslint src",

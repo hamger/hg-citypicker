@@ -61,7 +61,7 @@ describe('picker test', () => {
       title: '选择城市',
       cancelText: 'cancel',
       okText: 'ok',
-      initialOption: ['广东', '广州', '越秀区']
+      initValue: ['广东', '广州', '越秀区']
     })
     expect(picker.get('title')).toBe('选择城市')
     expect(picker.get('pickerNumber')).toBe(1)

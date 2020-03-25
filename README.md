@@ -4,7 +4,7 @@
 ![NPM](https://img.shields.io/npm/l/hg-citypicker.svg?color=orange)
 [![npm](https://img.shields.io/npm/v/hg-citypicker.svg?color=blue)](https://www.npmjs.com/package/hg-citypicker)
 
-移动端的地区选择器，适用于选择嵌套类型的数据。
+移动端的地区选择器，适用于选择嵌套类型的数据。具有很好的适应性，可以在任何前端框架中使用。
 
 > 这里是 2.x 的文档，1.x 文档请点击[这里](https://github.com/hamger/hg-citypicker/tree/v1.x)。
 
@@ -22,52 +22,77 @@
 
 ## Usage
 
-首先引入文件
+### 在 vue 等框架中使用
 
-```html
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="https://unpkg.com/hg-citypicker/picker.css"
-/>
-<script src="https://unpkg.com/hg-citypicker/dist/hg-citypicker.js"></script>
-```
-
-实例化地区选择器`new CityPicker(configuration)`
-
-```js
-var cityPicker = new CityPicker({
-  data: city, // 符合格式的数组
-  onOk: function(arr) {
-    // 回调函数
-    console.log(arr);
-  }
-});
-```
-
-如果你使用构建工具，可以这样引入
-
-```js
+```vue
+<template>
+  <div @click="select">选择地区</div>
+</template>
+<script>
 import "hg-citypicker/picker.css";
 import CityPicker from "hg-citypicker";
-```
 
-在`vue`中实例化插件，如果数据是请求来的，实例化写在请求成功后的回调中
-
-```js
-var cityPicker = null
-...
-mounted () {
-  this.$nextTick(() => {
-    cityPicker = new CityPicker({
+export default {
+  data() {
+    return {
+      picker: null
+    };
+  },
+  methods: {
+    select() {
+      this.picker.show();
+    }
+  },
+  mounted () {
+    this.picker = new CityPicker({
       data: city,
       onOk: function(arr) {
         console.log(arr);
       }
     });
-  });
-}
+  },
+  beforeDestroy() {
+    if (this.picker) {
+      this.picker.destroy();
+      this.picker = null;
+    }
+  }
+};
+</script>
 ```
+
+> 组件销毁时需要销毁 CityPicker 实例，防止内存溢出
+
+> 如果数据是请求来的，实例化写在请求成功后的回调中
+
+### 在传统页面中使用
+
+```html
+<head>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://unpkg.com/hg-citypicker/picker.css"
+  />
+  <script src="https://unpkg.com/hg-citypicker/dist/hg-citypicker.js"></script>
+</head>
+<body>
+  <div onclick="select(1)">选择地区</div>
+  <script>
+    var picker = new CityPicker({
+      data: city, // 符合格式的数组
+      onOk: function(arr) {
+        console.log(arr);
+      }
+    });
+    window.select = function(number) {
+      picker.show();
+    };
+  </script>
+</body>
+```
+
+### data 配置项的合法值
 
 `data`选项接受的数据格式如下，其中的键名`value`和`child`可以根据实际需要通过配置项`valueKey`和`childKey`设置
 
@@ -75,16 +100,18 @@ mounted () {
 var city = [
   {
     value: "北京",
-    child: [{value: "东城区"}, {value: "西城区"}]
+    child: [{ value: "东城区" }, { value: "西城区" }]
   },
   {
     value: "广东",
-    child: [{
-      value: "广州",
-      child: [{value: "越秀区"}, {value: "荔湾区"}]
-    }]
+    child: [
+      {
+        value: "广州",
+        child: [{ value: "越秀区" }, { value: "荔湾区" }]
+      }
+    ]
   }
-]
+];
 ```
 
 由于考虑到各种复杂的情况，返回的结果数据比较全面。例如你选择了`广东-广州-越秀区`，成功的回调函数中会接收如下形式的数组
@@ -92,20 +119,22 @@ var city = [
 ```js
 [
   {
-    value: '广东',
-    child: [{
-      value: '广州',
-      child: [{ value: '越秀区' }, { value: '荔湾区' }]
-    }]
+    value: "广东",
+    child: [
+      {
+        value: "广州",
+        child: [{ value: "越秀区" }, { value: "荔湾区" }]
+      }
+    ]
   },
   {
-    value: '广州',
-    child: [{ value: '越秀区' }, { value: '荔湾区' }]
+    value: "广州",
+    child: [{ value: "越秀区" }, { value: "荔湾区" }]
   },
   {
-    value: '越秀区'
+    value: "越秀区"
   }
-]
+];
 ```
 
 调用实例方法 show 呼起选择器，完整案例见[这里](https://github.com/hamger/hg-citypicker/blob/master/index.html)。
@@ -115,9 +144,9 @@ var city = [
 `configuration`是一个配置项的对象，可以接受如下选项：
 
 | key           | value           | description                                                                                   |
-|---------------|-----------------|-----------------------------------------------------------------------------------------------|
+| ------------- | --------------- | --------------------------------------------------------------------------------------------- |
 | data          | Array\<Object\> | 符合格式的数组，必填                                                                          |
-| initialOption | Array\<String\> | 规定初始显示的选项，选填                                                                      |
+| initValue | Array\<String\> | 规定初始显示的选项，选填                                                                      |
 | valueKey      | String          | 需要展示的数据的键名，默认`value`                                                             |
 | childKey      | String          | 子数据的键名，默认`child`                                                                     |
 | onOk          | Function        | 确定后的回调函数，返回一个结果数组，必填                                                      |
@@ -131,7 +160,7 @@ var city = [
 `style`对象可以接受如下选项（以下配置项若仍无法满足需求，可自行修改并引入`picker.css`）：
 
 | key             | value  | description                         |
-|-----------------|--------|-------------------------------------|
+| --------------- | ------ | ----------------------------------- |
 | liHeight        | Number | 每一个选择栏的高度（px），默认 `40` |
 | btnHeight       | Number | 按钮栏的高度（px），默认 `44`       |
 | btnOffset       | String | 按钮离边框的距离，默认 `20px`       |
@@ -147,17 +176,22 @@ var city = [
 
 ## 实例方法
 
-| function | param      | description    |
-|----------|------------|----------------|
-| show()   | `--`       | 呼起选择框     |
-| hide()   | `--`       | 关闭选择框     |
-| set(obj) | obj:Object | 设置选择器属性 |
-| get(key) | key:String | 获取选择框属性 |
+| function  | param      | description    |
+| --------- | ---------- | -------------- |
+| show()    | `--`       | 呼起选择框     |
+| hide()    | `--`       | 关闭选择框     |
+| set(obj)  | obj:Object | 设置选择器属性 |
+| get(key)  | key:String | 获取选择框属性 |
+| destroy() | `--`       | 销毁选择器     |
 
-> 参数 obj 中指定`title`、`cancelText`、`okText`、`valueKey`、`childKey`、`a`、`onOk`、`onCancel`、`initialOption`的值，会修改对应的选择器配置
+> 参数 obj 中指定`title`、`cancelText`、`okText`、`valueKey`、`childKey`、`a`、`onOk`、`onCancel`、`initValue`的值，会修改对应的选择器配置
 
 ## Change Log
 
+### 2020.3.25
+
+> v2.1.0 实现选择器销毁的实例方法，配置项 initValue 变更为 initValue
+
 ### 2019.6.29
 
-> v2.0.0 使用 ES6 重构项目 & 添加实例方法 set、get 
+> v2.0.0 使用 ES6 重构项目 & 添加实例方法 set、get

@@ -8,7 +8,7 @@ var picker = new CityPicker({
   cancel: function () {
     console.log('取消城市选择')
   },
-  initialOption: ['辽宁', '大连', '中山区'],
+  initValue: ['辽宁', '大连', '中山区'],
   onOk: function (arr) {
     console.log(arr)
     var arr2 = []
@@ -20,7 +20,7 @@ var picker = new CityPicker({
 })
 
 window.setInitailOption = function () {
-  picker.set({ initialOption: ['湖北', '荆州', '荆州区'] })
+  picker.set({ initValue: ['湖北', '荆州', '荆州区'] })
 }
 
 window.select = function (number) {

@@ -11,7 +11,7 @@ const property = Symbol('property')
 export default class CityPicker {
   constructor (config) {
     this.data = config.data // json 数据，必填
-    this.initialOption = config.initialOption || null // 规定初始显示的选项，选填
+    this.initValue = config.initValue || null // 规定初始显示的选项，选填
     this.valueKey = config.valueKey || 'value' // 需要展示的数据的键名，选填
     this.childKey = config.childKey || 'child' // 子数据的键名，选填
     this.onOk = config.onOk // 确定按钮回调函数，必填
@@ -67,8 +67,8 @@ export default class CityPicker {
     // 初始化最高层的参数，最高层的关联数组在未来的操作中都无需更新
     this.relatedArr[0] = this.data
     this.liNum[0] = this.relatedArr[0].length
-    if (this.initialOption) {
-      this.setInitailOption(this.initialOption, true)
+    if (this.initValue) {
+      this.setInitailOption(this.initValue, true)
     } else {
       this.cityIndex[0] = 0
       this.curDis[0] = 0
@@ -120,12 +120,12 @@ export default class CityPicker {
       if (i === 0) {
         let idx = this.getValue(this.data).indexOf(arr[i])
         if (idx > -1) idxArr.unshift(idx)
-        else throw Error('The matching initialOption cannot be found')
+        else throw Error('The matching initValue cannot be found')
       } else {
         this.getRelatedArr(this.relatedArr[i - 1][idxArr[0]], i - 1)
         let idx = this.getValue(this.relatedArr[i]).indexOf(arr[i])
         if (idx > -1) idxArr.unshift(idx)
-        else throw Error('The matching initialOption cannot be found')
+        else throw Error('The matching initValue cannot be found')
       }
     }
     let idxMark = idxArr.reverse()
@@ -517,12 +517,12 @@ export default class CityPicker {
    */
   set (obj) {
     for (let [key, value] of Object.entries(obj)) {
-      if (/^(title|cancelText|okText|valueKey|childKey|a|onOk|onCancel|initialOption)$/.test(key)) {
+      if (/^(title|cancelText|okText|valueKey|childKey|a|onOk|onCancel|initValue)$/.test(key)) {
         this[key] = value
         if (key === 'title') $id(this.titleId).innerHTML = value
         else if (key === 'okText') $id(this.okId).innerHTML = value
         else if (key === 'cancelText') $id(this.cancelId).innerHTML = value
-        else if (key === 'initialOption') this.setInitailOption(value)
+        else if (key === 'initValue') this.setInitailOption(value)
       } else {
         this[property][key] = value
       }
@@ -533,10 +533,16 @@ export default class CityPicker {
    * 获取选择器属性
    */
   get (key) {
-    if (/^(title|cancelText|okText|valueKey|childKey|a|onOk|onCancel|initialOption)$/.test(key)) {
+    if (/^(title|cancelText|okText|valueKey|childKey|a|onOk|onCancel|initValue)$/.test(key)) {
       return this[key]
     } else {
       return this[property][key]
     }
+  }
+  /**
+   * 销毁组件
+   */
+  destroy () {
+    $id(this.wrapId).remove()
   }
 }
